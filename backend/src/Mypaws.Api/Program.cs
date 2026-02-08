@@ -121,12 +121,21 @@ app.MapGet("/api/v1", () => Results.Ok(new { name = "Mypaws API", version = "1.0
 app.MapControllers();
 
 // Apply migrations and seed data on startup in Development
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     var db = scope.ServiceProvider.GetRequiredService<MypawsDbContext>();
+
+    logger.LogInformation("Checking EF Core migrations...");
     db.Database.Migrate();
-    SeedData.Initialize(db);
+    logger.LogInformation("EF Core migrations check completed");
+
+    if (app.Environment.IsDevelopment())
+    {
+        logger.LogInformation("Running seed data...");
+        SeedData.Initialize(db);
+    }
 }
+
 
 app.Run();
