@@ -182,9 +182,26 @@ If you see an error like `Network whatomate declared as external, but could not 
 2.  **Update `docker-compose.prod.yml`**:
     Edit the file and change the network name at the bottom:
 
-    ```yaml
     networks:
       whatomate:
         external: true
         name: whatomate_default  # <--- Change this to the actual name from step 1
     ```
+
+## 10. Troubleshooting: Build Stuck (Out of Memory)
+
+If your build freezes or crashes with "Killed" on a 1GB server, you are running out of RAM.
+
+**Solution: Add Swap Space** (Virtual RAM on disk)
+Run these commands on your server:
+
+```bash
+# Create a 4GB swap file
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# Make it permanent
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```

@@ -47,7 +47,6 @@ public static class SeedData
         {
             breedsJsonPath = "/app/data/breeds.json";
         }
-
         List<Breed> allBreeds = new();
 
         if (File.Exists(breedsJsonPath))
