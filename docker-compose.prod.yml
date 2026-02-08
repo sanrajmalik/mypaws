@@ -10,8 +10,8 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      # This is the public URL the browser sees (e.g. https://mypaws.com/api)
-      - NEXT_PUBLIC_API_URL=https://mypaws.com/api 
+      # This is the public URL the browser sees (e.g. https://mypaws.in/api)
+      - NEXT_PUBLIC_API_URL=https://mypaws.in/api 
       # This is the internal URL the SSR server sees (docker network)
       - INTERNAL_API_URL=http://mypaws_api:5000/api
       # Google OAuth
@@ -42,7 +42,7 @@ services:
       - Auth__Issuer=mypaws.in
       - Auth__Audience=mypaws-api
       - Auth__GoogleClientId=${GOOGLE_CLIENT_ID}
-      - App__BaseUrl=https://mypaws.com
+      - App__BaseUrl=https://mypaws.in
     ports:
       - "127.0.0.1:5001:5000" # Expose to host on port 5001, bind only to localhost
     volumes:
