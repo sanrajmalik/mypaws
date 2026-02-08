@@ -1,0 +1,76 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+bin/
+obj/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes (local dev data)
+postgres_data/
+redis_data/
+
+# Uploads (media files)
+uploads/
+
+# .NET
+*.dll
+*.pdb
+*.nupkg
+packages/
+project.lock.json
+*.nuget.props
+*.nuget.targets
+
+# Testing
+coverage/
+*.coverage
+TestResults/
+
+# Misc
+*.swp
+*.swo
+*~
+
+# Sensitive / Local Configuration
+docker-compose.yml
+docker-compose.override.yml
+*.pem
+*.key
+*.cert
+*.pfx
+
+# Backend Secret Config
+appsettings.Development.json
+
+# IDE / Editor
+.vs/
+.vscode/

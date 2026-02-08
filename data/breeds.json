@@ -1,0 +1,913 @@
+{
+    "petTypes": [
+        {
+            "id": "pt000001-0000-0000-0000-000000000001",
+            "name": "Dog",
+            "slug": "dog",
+            "pluralName": "Dogs",
+            "displayOrder": 1
+        },
+        {
+            "id": "pt000002-0000-0000-0000-000000000002",
+            "name": "Cat",
+            "slug": "cat",
+            "pluralName": "Cats",
+            "displayOrder": 2
+        }
+    ],
+    "breeds": {
+        "dogs": [
+            {
+                "name": "Labrador Retriever",
+                "slug": "labrador-retriever",
+                "sizeCategory": "large",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "German Shepherd",
+                "slug": "german-shepherd",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Golden Retriever",
+                "slug": "golden-retriever",
+                "sizeCategory": "large",
+                "origin": "Scotland",
+                "isPopular": true
+            },
+            {
+                "name": "Beagle",
+                "slug": "beagle",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "Pomeranian",
+                "slug": "pomeranian",
+                "sizeCategory": "small",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Pug",
+                "slug": "pug",
+                "sizeCategory": "small",
+                "origin": "China",
+                "isPopular": true
+            },
+            {
+                "name": "Shih Tzu",
+                "slug": "shih-tzu",
+                "sizeCategory": "small",
+                "origin": "Tibet",
+                "isPopular": true
+            },
+            {
+                "name": "Rottweiler",
+                "slug": "rottweiler",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Boxer",
+                "slug": "boxer",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Doberman Pinscher",
+                "slug": "doberman-pinscher",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Great Dane",
+                "slug": "great-dane",
+                "sizeCategory": "giant",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Siberian Husky",
+                "slug": "siberian-husky",
+                "sizeCategory": "large",
+                "origin": "Russia",
+                "isPopular": true
+            },
+            {
+                "name": "Dachshund",
+                "slug": "dachshund",
+                "sizeCategory": "small",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Cocker Spaniel",
+                "slug": "cocker-spaniel",
+                "sizeCategory": "medium",
+                "origin": "Spain",
+                "isPopular": true
+            },
+            {
+                "name": "Yorkshire Terrier",
+                "slug": "yorkshire-terrier",
+                "sizeCategory": "small",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "Bulldog",
+                "slug": "bulldog",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "French Bulldog",
+                "slug": "french-bulldog",
+                "sizeCategory": "small",
+                "origin": "France",
+                "isPopular": true
+            },
+            {
+                "name": "Poodle",
+                "slug": "poodle",
+                "sizeCategory": "medium",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Chihuahua",
+                "slug": "chihuahua",
+                "sizeCategory": "small",
+                "origin": "Mexico",
+                "isPopular": true
+            },
+            {
+                "name": "Border Collie",
+                "slug": "border-collie",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Australian Shepherd",
+                "slug": "australian-shepherd",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Cavalier King Charles Spaniel",
+                "slug": "cavalier-king-charles-spaniel",
+                "sizeCategory": "small",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Miniature Schnauzer",
+                "slug": "miniature-schnauzer",
+                "sizeCategory": "small",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Shiba Inu",
+                "slug": "shiba-inu",
+                "sizeCategory": "medium",
+                "origin": "Japan",
+                "isPopular": true
+            },
+            {
+                "name": "Boston Terrier",
+                "slug": "boston-terrier",
+                "sizeCategory": "small",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Havanese",
+                "slug": "havanese",
+                "sizeCategory": "small",
+                "origin": "Cuba",
+                "isPopular": false
+            },
+            {
+                "name": "Pembroke Welsh Corgi",
+                "slug": "pembroke-welsh-corgi",
+                "sizeCategory": "small",
+                "origin": "Wales",
+                "isPopular": true
+            },
+            {
+                "name": "Bernese Mountain Dog",
+                "slug": "bernese-mountain-dog",
+                "sizeCategory": "giant",
+                "origin": "Switzerland",
+                "isPopular": false
+            },
+            {
+                "name": "English Springer Spaniel",
+                "slug": "english-springer-spaniel",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Shetland Sheepdog",
+                "slug": "shetland-sheepdog",
+                "sizeCategory": "small",
+                "origin": "Scotland",
+                "isPopular": false
+            },
+            {
+                "name": "Brittany",
+                "slug": "brittany",
+                "sizeCategory": "medium",
+                "origin": "France",
+                "isPopular": false
+            },
+            {
+                "name": "Maltese",
+                "slug": "maltese",
+                "sizeCategory": "small",
+                "origin": "Malta",
+                "isPopular": true
+            },
+            {
+                "name": "Weimaraner",
+                "slug": "weimaraner",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Vizsla",
+                "slug": "vizsla",
+                "sizeCategory": "medium",
+                "origin": "Hungary",
+                "isPopular": false
+            },
+            {
+                "name": "Basset Hound",
+                "slug": "basset-hound",
+                "sizeCategory": "medium",
+                "origin": "France",
+                "isPopular": false
+            },
+            {
+                "name": "Newfoundland",
+                "slug": "newfoundland",
+                "sizeCategory": "giant",
+                "origin": "Canada",
+                "isPopular": false
+            },
+            {
+                "name": "Bloodhound",
+                "slug": "bloodhound",
+                "sizeCategory": "large",
+                "origin": "Belgium",
+                "isPopular": false
+            },
+            {
+                "name": "Akita",
+                "slug": "akita",
+                "sizeCategory": "large",
+                "origin": "Japan",
+                "isPopular": false
+            },
+            {
+                "name": "Samoyed",
+                "slug": "samoyed",
+                "sizeCategory": "large",
+                "origin": "Russia",
+                "isPopular": true
+            },
+            {
+                "name": "Dalmatian",
+                "slug": "dalmatian",
+                "sizeCategory": "large",
+                "origin": "Croatia",
+                "isPopular": false
+            },
+            {
+                "name": "Papillon",
+                "slug": "papillon",
+                "sizeCategory": "small",
+                "origin": "France",
+                "isPopular": false
+            },
+            {
+                "name": "Whippet",
+                "slug": "whippet",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Bull Terrier",
+                "slug": "bull-terrier",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Bichon Frise",
+                "slug": "bichon-frise",
+                "sizeCategory": "small",
+                "origin": "Spain",
+                "isPopular": true
+            },
+            {
+                "name": "Chow Chow",
+                "slug": "chow-chow",
+                "sizeCategory": "medium",
+                "origin": "China",
+                "isPopular": false
+            },
+            {
+                "name": "Afghan Hound",
+                "slug": "afghan-hound",
+                "sizeCategory": "large",
+                "origin": "Afghanistan",
+                "isPopular": false
+            },
+            {
+                "name": "Irish Setter",
+                "slug": "irish-setter",
+                "sizeCategory": "large",
+                "origin": "Ireland",
+                "isPopular": false
+            },
+            {
+                "name": "Scottish Terrier",
+                "slug": "scottish-terrier",
+                "sizeCategory": "small",
+                "origin": "Scotland",
+                "isPopular": false
+            },
+            {
+                "name": "West Highland White Terrier",
+                "slug": "west-highland-white-terrier",
+                "sizeCategory": "small",
+                "origin": "Scotland",
+                "isPopular": false
+            },
+            {
+                "name": "Airedale Terrier",
+                "slug": "airedale-terrier",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Lhasa Apso",
+                "slug": "lhasa-apso",
+                "sizeCategory": "small",
+                "origin": "Tibet",
+                "isPopular": true
+            },
+            {
+                "name": "Saint Bernard",
+                "slug": "saint-bernard",
+                "sizeCategory": "giant",
+                "origin": "Switzerland",
+                "isPopular": false
+            },
+            {
+                "name": "Mastiff",
+                "slug": "mastiff",
+                "sizeCategory": "giant",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Bullmastiff",
+                "slug": "bullmastiff",
+                "sizeCategory": "giant",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "American Pit Bull Terrier",
+                "slug": "american-pit-bull-terrier",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "American Staffordshire Terrier",
+                "slug": "american-staffordshire-terrier",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Belgian Malinois",
+                "slug": "belgian-malinois",
+                "sizeCategory": "large",
+                "origin": "Belgium",
+                "isPopular": true
+            },
+            {
+                "name": "Alaskan Malamute",
+                "slug": "alaskan-malamute",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Great Pyrenees",
+                "slug": "great-pyrenees",
+                "sizeCategory": "giant",
+                "origin": "France",
+                "isPopular": false
+            },
+            {
+                "name": "Cane Corso",
+                "slug": "cane-corso",
+                "sizeCategory": "giant",
+                "origin": "Italy",
+                "isPopular": true
+            },
+            {
+                "name": "Jack Russell Terrier",
+                "slug": "jack-russell-terrier",
+                "sizeCategory": "small",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "English Cocker Spaniel",
+                "slug": "english-cocker-spaniel",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "German Shorthaired Pointer",
+                "slug": "german-shorthaired-pointer",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Rhodesian Ridgeback",
+                "slug": "rhodesian-ridgeback",
+                "sizeCategory": "large",
+                "origin": "South Africa",
+                "isPopular": false
+            },
+            {
+                "name": "Tibetan Mastiff",
+                "slug": "tibetan-mastiff",
+                "sizeCategory": "giant",
+                "origin": "Tibet",
+                "isPopular": false
+            },
+            {
+                "name": "Toy Poodle",
+                "slug": "toy-poodle",
+                "sizeCategory": "small",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Miniature Poodle",
+                "slug": "miniature-poodle",
+                "sizeCategory": "small",
+                "origin": "Germany",
+                "isPopular": true
+            },
+            {
+                "name": "Standard Poodle",
+                "slug": "standard-poodle",
+                "sizeCategory": "large",
+                "origin": "Germany",
+                "isPopular": false
+            },
+            {
+                "name": "Goldendoodle",
+                "slug": "goldendoodle",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Labradoodle",
+                "slug": "labradoodle",
+                "sizeCategory": "large",
+                "origin": "Australia",
+                "isPopular": true
+            },
+            {
+                "name": "Cockapoo",
+                "slug": "cockapoo",
+                "sizeCategory": "small",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Maltipoo",
+                "slug": "maltipoo",
+                "sizeCategory": "small",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Puggle",
+                "slug": "puggle",
+                "sizeCategory": "small",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Indian Spitz",
+                "slug": "indian-spitz",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": true
+            },
+            {
+                "name": "Indian Pariah",
+                "slug": "indian-pariah",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": true
+            },
+            {
+                "name": "Rajapalayam",
+                "slug": "rajapalayam",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Mudhol Hound",
+                "slug": "mudhol-hound",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Kombai",
+                "slug": "kombai",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Chippiparai",
+                "slug": "chippiparai",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Kanni",
+                "slug": "kanni",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Rampur Greyhound",
+                "slug": "rampur-greyhound",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Gaddi Kutta",
+                "slug": "gaddi-kutta",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Bakharwal Dog",
+                "slug": "bakharwal-dog",
+                "sizeCategory": "large",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Jonangi",
+                "slug": "jonangi",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": false
+            },
+            {
+                "name": "Mixed Breed / Indie",
+                "slug": "mixed-breed-indie",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": true
+            }
+        ],
+        "cats": [
+            {
+                "name": "Persian",
+                "slug": "persian",
+                "sizeCategory": "medium",
+                "origin": "Iran",
+                "isPopular": true
+            },
+            {
+                "name": "Siamese",
+                "slug": "siamese",
+                "sizeCategory": "medium",
+                "origin": "Thailand",
+                "isPopular": true
+            },
+            {
+                "name": "Maine Coon",
+                "slug": "maine-coon",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Ragdoll",
+                "slug": "ragdoll",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "British Shorthair",
+                "slug": "british-shorthair",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": true
+            },
+            {
+                "name": "Bengal",
+                "slug": "bengal",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Himalayan",
+                "slug": "himalayan",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Abyssinian",
+                "slug": "abyssinian",
+                "sizeCategory": "medium",
+                "origin": "Ethiopia",
+                "isPopular": false
+            },
+            {
+                "name": "Scottish Fold",
+                "slug": "scottish-fold",
+                "sizeCategory": "medium",
+                "origin": "Scotland",
+                "isPopular": true
+            },
+            {
+                "name": "Sphynx",
+                "slug": "sphynx",
+                "sizeCategory": "medium",
+                "origin": "Canada",
+                "isPopular": false
+            },
+            {
+                "name": "Russian Blue",
+                "slug": "russian-blue",
+                "sizeCategory": "medium",
+                "origin": "Russia",
+                "isPopular": true
+            },
+            {
+                "name": "Burmese",
+                "slug": "burmese",
+                "sizeCategory": "medium",
+                "origin": "Myanmar",
+                "isPopular": false
+            },
+            {
+                "name": "Birman",
+                "slug": "birman",
+                "sizeCategory": "medium",
+                "origin": "Myanmar",
+                "isPopular": false
+            },
+            {
+                "name": "American Shorthair",
+                "slug": "american-shorthair",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Norwegian Forest Cat",
+                "slug": "norwegian-forest-cat",
+                "sizeCategory": "large",
+                "origin": "Norway",
+                "isPopular": false
+            },
+            {
+                "name": "Exotic Shorthair",
+                "slug": "exotic-shorthair",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Tonkinese",
+                "slug": "tonkinese",
+                "sizeCategory": "medium",
+                "origin": "Canada",
+                "isPopular": false
+            },
+            {
+                "name": "Devon Rex",
+                "slug": "devon-rex",
+                "sizeCategory": "small",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Cornish Rex",
+                "slug": "cornish-rex",
+                "sizeCategory": "small",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Oriental Shorthair",
+                "slug": "oriental-shorthair",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "Bombay",
+                "slug": "bombay",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Somali",
+                "slug": "somali",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Balinese",
+                "slug": "balinese",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Singapura",
+                "slug": "singapura",
+                "sizeCategory": "small",
+                "origin": "Singapore",
+                "isPopular": false
+            },
+            {
+                "name": "Chartreux",
+                "slug": "chartreux",
+                "sizeCategory": "medium",
+                "origin": "France",
+                "isPopular": false
+            },
+            {
+                "name": "Ocicat",
+                "slug": "ocicat",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Manx",
+                "slug": "manx",
+                "sizeCategory": "medium",
+                "origin": "Isle of Man",
+                "isPopular": false
+            },
+            {
+                "name": "Turkish Angora",
+                "slug": "turkish-angora",
+                "sizeCategory": "medium",
+                "origin": "Turkey",
+                "isPopular": false
+            },
+            {
+                "name": "Egyptian Mau",
+                "slug": "egyptian-mau",
+                "sizeCategory": "medium",
+                "origin": "Egypt",
+                "isPopular": false
+            },
+            {
+                "name": "Siberian",
+                "slug": "siberian",
+                "sizeCategory": "large",
+                "origin": "Russia",
+                "isPopular": false
+            },
+            {
+                "name": "Ragamuffin",
+                "slug": "ragamuffin",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "LaPerm",
+                "slug": "laperm",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Savannah",
+                "slug": "savannah",
+                "sizeCategory": "large",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Munchkin",
+                "slug": "munchkin",
+                "sizeCategory": "small",
+                "origin": "United States",
+                "isPopular": true
+            },
+            {
+                "name": "Selkirk Rex",
+                "slug": "selkirk-rex",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Japanese Bobtail",
+                "slug": "japanese-bobtail",
+                "sizeCategory": "medium",
+                "origin": "Japan",
+                "isPopular": false
+            },
+            {
+                "name": "Korat",
+                "slug": "korat",
+                "sizeCategory": "medium",
+                "origin": "Thailand",
+                "isPopular": false
+            },
+            {
+                "name": "Havana Brown",
+                "slug": "havana-brown",
+                "sizeCategory": "medium",
+                "origin": "United Kingdom",
+                "isPopular": false
+            },
+            {
+                "name": "American Curl",
+                "slug": "american-curl",
+                "sizeCategory": "medium",
+                "origin": "United States",
+                "isPopular": false
+            },
+            {
+                "name": "Turkish Van",
+                "slug": "turkish-van",
+                "sizeCategory": "large",
+                "origin": "Turkey",
+                "isPopular": false
+            },
+            {
+                "name": "Indian Domestic Cat",
+                "slug": "indian-domestic-cat",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": true
+            },
+            {
+                "name": "Mixed Breed / Indie Cat",
+                "slug": "mixed-breed-indie-cat",
+                "sizeCategory": "medium",
+                "origin": "India",
+                "isPopular": true
+            }
+        ]
+    }
+}

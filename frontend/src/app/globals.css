@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* Primary Color Palette - Orange theme */
+:root {
+  --background: #ffffff;
+  --foreground: #1f2937;
+
+  /* Primary Orange */
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+}
+
+/* Disable dark mode - force light theme */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Force all form inputs to have visible text */
+input,
+select,
+textarea {
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Primary color utility classes */
+.bg-primary-50 {
+  background-color: #fff7ed;
+}
+
+.bg-primary-100 {
+  background-color: #ffedd5;
+}
+
+.bg-primary-500 {
+  background-color: #f97316;
+}
+
+.bg-primary-600 {
+  background-color: #ea580c;
+}
+
+.bg-primary-700 {
+  background-color: #c2410c;
+}
+
+.text-primary-500 {
+  color: #f97316;
+}
+
+.text-primary-600 {
+  color: #ea580c;
+}
+
+.text-primary-700 {
+  color: #c2410c;
+}
+
+.border-primary-400 {
+  border-color: #fb923c;
+}
+
+.border-primary-500 {
+  border-color: #f97316;
+}
+
+.ring-primary-500 {
+  --tw-ring-color: #f97316;
+}
+
+.hover\:bg-primary-50:hover {
+  background-color: #fff7ed;
+}
+
+.hover\:bg-primary-700:hover {
+  background-color: #c2410c;
+}
+
+.hover\:text-primary-700:hover {
+  color: #c2410c;
+}
+
+.hover\:text-primary-800:hover {
+  color: #9a3412;
+}
+
+.hover\:border-primary-500:hover {
+  border-color: #f97316;
+}
+
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: #f97316;
+}
+
+.focus\:border-primary-500:focus {
+  border-color: #f97316;
+}
+
+/* Selection highlight effect */
+.selection-active {
+  border-color: #f97316 !important;
+  background-color: #fff7ed !important;
+}
+
+/* Beautiful form card */
+.form-card {
+  background: linear-gradient(to bottom, #ffffff, #fafafa);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions */
+button,
+input,
+select,
+textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+  border-color: #f97316;
+}
+
+/* Better checkbox styling */
+input[type="checkbox"]:checked {
+  background-color: #f97316;
+  border-color: #f97316;
+}
