@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Next.js Frontend
+  mypaws_frontend:
+    container_name: mypaws_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      # This is the public URL the browser sees (e.g. https://mypaws.com/api)
+      - NEXT_PUBLIC_API_URL=https://mypaws.com/api 
+      # This is the internal URL the SSR server sees (docker network)
+      - INTERNAL_API_URL=http://mypaws_api:5000/api
+      # Google OAuth
+      - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    ports:
+      - "127.0.0.1:3001:3000" # Expose to host on port 3001, bind only to localhost
+    networks:
+      - whatomate
+    depends_on:
+      - mypaws_api
+
+  # ASP.NET Core API
+  mypaws_api:
+    container_name: mypaws_api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      # Connect to EXISTING whatomate_db container
+      - ConnectionStrings__DefaultConnection=Host=whatomate_db;Database=mypaws;Username=mypaws;Password=${DB_PASSWORD}
+      # Connect to EXISTING whatomate_redis container
+      - Redis__ConnectionString=whatomate_redis:6379
+      - Auth__MockEnabled=false
+      - Auth__JwtSecret=${JWT_SECRET}
+      - Auth__Issuer=mypaws.in
+      - Auth__Audience=mypaws-api
+      - Auth__GoogleClientId=${GOOGLE_CLIENT_ID}
+      - App__BaseUrl=https://mypaws.com
+    ports:
+      - "127.0.0.1:5001:5000" # Expose to host on port 5001, bind only to localhost
+    volumes:
+      - ./uploads:/app/wwwroot/uploads
+    networks:
+      - whatomate
+
+networks:
+  whatomate:
+    external: true
+    name: whatomate_whatomate

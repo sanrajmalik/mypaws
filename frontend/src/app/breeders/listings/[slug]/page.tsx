@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Heart, ArrowLeft, Check, X, MessageCircle, Share2, Store } from 'lucide-react';
+import { MapPin, Heart, ArrowLeft, Check, X, MessageCircle, Share2, Store, Phone, Mail } from 'lucide-react';
 import { getBreederListing } from '@/lib/public-api';
 import PetImageGallery from '@/components/pet/PetImageGallery';
+import ProtectedContact from '@/components/auth/ProtectedContact';
 // Using inline styles or standard tailwind to avoid module css dependency issues for now, or reuse adopt.module.css if possible.
 // For speed and consistency, I'll use Tailwind directly.
 
@@ -125,10 +126,31 @@ export default async function BreederListingDetailPage({ params }: PageProps) {
 
                     {/* CTA Actions */}
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="flex-1 inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                            <MessageCircle className="w-5 h-5 mr-2" />
-                            Contact Breeder
-                        </button>
+                        <ProtectedContact label="Login to Contact Breeder" className="flex-1">
+                            <div className="flex flex-col gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 w-full mb-4 sm:mb-0">
+                                <h3 className="font-semibold text-gray-900">Breeder Contact</h3>
+                                {listing.businessPhone && (
+                                    <div className="flex items-center gap-2 text-gray-700">
+                                        <Phone className="w-4 h-4 text-gray-500" />
+                                        <a href={`tel:${listing.businessPhone}`} className="hover:text-primary-600 hover:underline">
+                                            {listing.businessPhone}
+                                        </a>
+                                    </div>
+                                )}
+                                {listing.businessEmail && (
+                                    <div className="flex items-center gap-2 text-gray-700">
+                                        <Mail className="w-4 h-4 text-gray-500" />
+                                        <a href={`mailto:${listing.businessEmail}`} className="hover:text-primary-600 hover:underline">
+                                            {listing.businessEmail}
+                                        </a>
+                                    </div>
+                                )}
+                                <button className="w-full flex justify-center items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 mt-2">
+                                    <MessageCircle className="w-4 h-4 mr-2" />
+                                    Chat on WhatsApp
+                                </button>
+                            </div>
+                        </ProtectedContact>
                         <button className="flex-1 inline-flex justify-center items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                             <Share2 className="w-5 h-5 mr-2" />
                             Share

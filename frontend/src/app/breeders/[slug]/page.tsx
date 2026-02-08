@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { breederApi } from '@/lib/breeder-api';
+import ProtectedContact from '@/components/auth/ProtectedContact';
 import { BreederProfileDto, BreederListingDto } from '@/types/breeder';
 import {
     MapPinIcon,
@@ -197,39 +198,43 @@ export default function BreederProfilePage() {
                         <h3 className="font-bold text-gray-900 mb-4 pb-2 border-b">Contact Information</h3>
 
                         <div className="space-y-4">
-                            <div className="flex items-start gap-3">
-                                <PhoneIcon className="w-5 h-5 text-gray-400 mt-1" />
-                                <div>
-                                    <p className="text-xs text-gray-500 uppercase font-semibold">Phone</p>
-                                    <p className="text-gray-900 font-medium">{profile.businessPhone}</p>
-                                </div>
-                            </div>
+                            <ProtectedContact label="Login to View Contact Details">
+                                <div className="space-y-4">
+                                    <div className="flex items-start gap-3">
+                                        <PhoneIcon className="w-5 h-5 text-gray-400 mt-1" />
+                                        <div>
+                                            <p className="text-xs text-gray-500 uppercase font-semibold">Phone</p>
+                                            <p className="text-gray-900 font-medium">{profile.businessPhone}</p>
+                                        </div>
+                                    </div>
 
-                            <div className="flex items-start gap-3">
-                                <EnvelopeIcon className="w-5 h-5 text-gray-400 mt-1" />
-                                <div>
-                                    <p className="text-xs text-gray-500 uppercase font-semibold">Email</p>
-                                    <p className="text-gray-900 font-medium">{profile.businessEmail}</p>
-                                </div>
-                            </div>
+                                    <div className="flex items-start gap-3">
+                                        <EnvelopeIcon className="w-5 h-5 text-gray-400 mt-1" />
+                                        <div>
+                                            <p className="text-xs text-gray-500 uppercase font-semibold">Email</p>
+                                            <p className="text-gray-900 font-medium">{profile.businessEmail}</p>
+                                        </div>
+                                    </div>
 
-                            {profile.websiteUrl && (
-                                <div className="flex items-start gap-3">
-                                    <GlobeAltIcon className="w-5 h-5 text-gray-400 mt-1" />
-                                    <div>
-                                        <p className="text-xs text-gray-500 uppercase font-semibold">Website</p>
-                                        <a href={profile.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
-                                            Visit Website
-                                        </a>
+                                    {profile.websiteUrl && (
+                                        <div className="flex items-start gap-3">
+                                            <GlobeAltIcon className="w-5 h-5 text-gray-400 mt-1" />
+                                            <div>
+                                                <p className="text-xs text-gray-500 uppercase font-semibold">Website</p>
+                                                <a href={profile.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                                                    Visit Website
+                                                </a>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="pt-4 border-t">
+                                        <button className="w-full py-3 bg-green-600 text-white rounded-lg font-bold shadow hover:bg-green-700 transition flex items-center justify-center gap-2">
+                                            <span className="text-lg">💬</span> Chat on WhatsApp
+                                        </button>
                                     </div>
                                 </div>
-                            )}
-
-                            <div className="pt-4 border-t">
-                                <button className="w-full py-3 bg-green-600 text-white rounded-lg font-bold shadow hover:bg-green-700 transition flex items-center justify-center gap-2">
-                                    <span className="text-lg">💬</span> Chat on WhatsApp
-                                </button>
-                            </div>
+                            </ProtectedContact>
                         </div>
                     </div>
                 </div>

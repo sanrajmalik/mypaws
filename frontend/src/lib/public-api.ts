@@ -208,6 +208,11 @@ export interface BreederListingDto {
     breederName: string;
     cityName: string;
     stateName: string;
+
+    // Contact
+    businessPhone?: string;
+    businessEmail?: string;
+    websiteUrl?: string;
 }
 
 export async function searchBreederListings(filter: BreederListingFilter): Promise<BreederListingDto[]> {

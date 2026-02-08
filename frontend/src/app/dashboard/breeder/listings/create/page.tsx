@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
 import BreederListingForm, { BreederListingFormData } from '@/components/breeders/BreederListingForm';
@@ -14,6 +15,13 @@ export default function CreateBreederListingPage() {
     if (!isLoading && (!isAuthenticated || !user?.isBreeder)) {
         router.push(isAuthenticated ? '/dashboard/breeder' : '/login');
     }
+
+    // Enforce Phone Number
+    useEffect(() => {
+        if (!isLoading && user && !user.phone) {
+            router.push('/dashboard/settings?prompt=phone');
+        }
+    }, [isLoading, user, router]);
 
     const handleSubmit = async (data: BreederListingFormData) => {
         try {

@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, MapPin, ShieldCheck, Heart, Calendar, Info } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Heart, Calendar, Info, Phone, Mail, MessageCircle } from 'lucide-react';
 import { getBreederListing } from '@/lib/public-api';
 import PetImageGallery from '@/components/pet/PetImageGallery';
 import ListingDetailedSeo from '@/components/seo/ListingDetailedSeo';
+import ProtectedContact from '@/components/auth/ProtectedContact';
 
 interface PageProps {
     params: Promise<{
@@ -140,9 +141,31 @@ export default async function BuyDogsPage({ params }: PageProps) {
                             {listing.priceNegotiable && <span className="text-sm text-gray-500">Negotiable</span>}
                         </div>
                         <div className="grid grid-cols-2 gap-3">
-                            <button className="col-span-2 w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg">
-                                Contact Breeder
-                            </button>
+                            <ProtectedContact label="Login to Contact Breeder" className="col-span-2">
+                                <div className="flex flex-col gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 w-full mb-4 sm:mb-0">
+                                    <h3 className="font-semibold text-gray-900">Breeder Contact</h3>
+                                    {listing.businessPhone && (
+                                        <div className="flex items-center gap-2 text-gray-700">
+                                            <Phone className="w-4 h-4 text-gray-500" />
+                                            <a href={`tel:${listing.businessPhone}`} className="hover:text-primary-600 hover:underline">
+                                                {listing.businessPhone}
+                                            </a>
+                                        </div>
+                                    )}
+                                    {listing.businessEmail && (
+                                        <div className="flex items-center gap-2 text-gray-700">
+                                            <Mail className="w-4 h-4 text-gray-500" />
+                                            <a href={`mailto:${listing.businessEmail}`} className="hover:text-primary-600 hover:underline">
+                                                {listing.businessEmail}
+                                            </a>
+                                        </div>
+                                    )}
+                                    <button className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg flex justify-center items-center mt-2">
+                                        <MessageCircle className="w-5 h-5 mr-1" />
+                                        Chat on WhatsApp
+                                    </button>
+                                </div>
+                            </ProtectedContact>
                         </div>
                     </div>
 

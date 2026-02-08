@@ -1,0 +1,19 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+TestResults/
+*.user
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Git
+.git
+.gitignore
+
+# Environment (Safety)
+.env
+appsettings.Development.json
+appsettings.local.json

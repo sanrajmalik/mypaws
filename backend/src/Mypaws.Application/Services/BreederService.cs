@@ -247,7 +247,11 @@ public class BreederService : IBreederService
             PetId = pet.Id,
             PetName = pet.Name,
             BreedName = "Pending Refresh", // We'd need to fetch breed name if creating new.
-            ImageUrl = pet.Images?.FirstOrDefault(i => i.IsPrimary)?.LargeUrl ?? pet.Images?.FirstOrDefault()?.LargeUrl ?? ""
+            ImageUrl = pet.Images?.FirstOrDefault(i => i.IsPrimary)?.LargeUrl ?? pet.Images?.FirstOrDefault()?.LargeUrl ?? "",
+            
+            BusinessPhone = profile.BusinessPhone,
+            BusinessEmail = profile.BusinessEmail,
+            WebsiteUrl = profile.WebsiteUrl
         };
     }
 
@@ -289,7 +293,11 @@ public class BreederService : IBreederService
             BreederId = l.BreederProfileId,
             BreederName = l.BreederProfile.BusinessName,
             CityName = l.BreederProfile.City?.Name ?? "Unknown",
-            StateName = l.BreederProfile.City?.State?.Name ?? ""
+            StateName = l.BreederProfile.City?.State?.Name ?? "",
+
+            BusinessPhone = l.BreederProfile.BusinessPhone,
+            BusinessEmail = l.BreederProfile.BusinessEmail,
+            WebsiteUrl = l.BreederProfile.WebsiteUrl
         });
     }
 
@@ -323,7 +331,11 @@ public class BreederService : IBreederService
             BreederId = listing.BreederProfileId,
             BreederName = listing.BreederProfile.BusinessName,
             CityName = listing.BreederProfile.City?.Name ?? "",
-            StateName = listing.BreederProfile.City?.State?.Name ?? ""
+            StateName = listing.BreederProfile.City?.State?.Name ?? "",
+
+            BusinessPhone = listing.BreederProfile.BusinessPhone,
+            BusinessEmail = listing.BreederProfile.BusinessEmail,
+            WebsiteUrl = listing.BreederProfile.WebsiteUrl
         };
         
         return dto;
@@ -420,7 +432,11 @@ public class BreederService : IBreederService
             PetId = l.PetId,
             PetName = l.Pet.Name,
             BreedName = l.Pet.Breed?.Name ?? "Unknown",
-            ImageUrl = l.Pet.Images.FirstOrDefault(i => i.IsPrimary)?.LargeUrl ?? l.Pet.Images.FirstOrDefault()?.LargeUrl ?? ""
+            ImageUrl = l.Pet.Images.FirstOrDefault(i => i.IsPrimary)?.LargeUrl ?? l.Pet.Images.FirstOrDefault()?.LargeUrl ?? "",
+            
+            BusinessPhone = l.BreederProfile.BusinessPhone,
+            BusinessEmail = l.BreederProfile.BusinessEmail,
+            WebsiteUrl = l.BreederProfile.WebsiteUrl
         });
     }
 

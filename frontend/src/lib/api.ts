@@ -106,9 +106,14 @@ class ApiClient {
     }
 
     async updateProfile(data: Partial<User>): Promise<User> {
+        const payload: any = { ...data };
+        if (data.displayName) {
+            payload.name = data.displayName;
+            delete payload.displayName;
+        }
         return this.fetch('/v1/auth/me', {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(payload),
         });
     }
 

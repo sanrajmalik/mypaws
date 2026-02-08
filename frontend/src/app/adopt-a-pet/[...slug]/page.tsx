@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Heart, ArrowLeft, Check, X, MessageCircle, Share2 } from 'lucide-react';
+import { MapPin, Heart, ArrowLeft, Check, X, MessageCircle, Share2, Phone, Mail } from 'lucide-react';
 import { getAdoptionListing } from '@/lib/public-api';
 import PetImageGallery from '@/components/pet/PetImageGallery';
 import styles from './detail.module.css';
 import ListingDetailedSeo from '@/components/seo/ListingDetailedSeo';
+import ProtectedContact from '@/components/auth/ProtectedContact';
 
 
 interface PageProps {
@@ -236,10 +237,31 @@ export default async function PetDetailPage({ params }: PageProps) {
 
           {/* CTA */}
           <div className={`${styles['pet-cta']} mt-8`}>
-            <button className={`${styles.btn} ${styles['btn--primary']}`}>
-              <MessageCircle className="w-5 h-5" />
-              Contact Owner
-            </button>
+            <ProtectedContact label="Login to Contact Owner">
+              <div className="flex flex-col gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 w-full">
+                <h3 className="font-semibold text-gray-900">Owner Contact</h3>
+                {listing.owner.contactInfo?.phone && (
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Phone className="w-4 h-4 text-gray-500" />
+                    <a href={`tel:${listing.owner.contactInfo.phone}`} className="hover:text-primary-600 hover:underline">
+                      {listing.owner.contactInfo.phone}
+                    </a>
+                  </div>
+                )}
+                {listing.owner.contactInfo?.email && (
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Mail className="w-4 h-4 text-gray-500" />
+                    <a href={`mailto:${listing.owner.contactInfo.email}`} className="hover:text-primary-600 hover:underline">
+                      {listing.owner.contactInfo.email}
+                    </a>
+                  </div>
+                )}
+                <button className={`${styles.btn} ${styles['btn--primary']} w-full mt-2`}>
+                  <MessageCircle className="w-5 h-5" />
+                  Chat on WhatsApp
+                </button>
+              </div>
+            </ProtectedContact>
             <button className={`${styles.btn} ${styles['btn--outline']}`}>
               <Heart className="w-5 h-5" />
               Save

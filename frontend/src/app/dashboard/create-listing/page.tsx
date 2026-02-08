@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
 import { getClient } from '@/lib/client-api';
 import ListingForm, { ListingFormData } from '@/components/dashboard/ListingForm';
 
 export default function CreateListingPage() {
     const router = useRouter();
+    const { user, isLoading } = useAuthStore();
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!isLoading && user && !user.phone) {
+            router.push('/dashboard/settings?prompt=phone');
+        }
+    }, [isLoading, user, router]);
 
     const handleSubmit = async (formData: ListingFormData) => {
         setSubmitting(true);

@@ -209,6 +209,11 @@ public class BreederListingDto
     public string BreederName { get; set; } = string.Empty; // Business Name
     public string CityName { get; set; } = string.Empty;
     public string StateName { get; set; } = string.Empty;
+    
+    // Contact Info (Added for public listing view)
+    public string? BusinessPhone { get; set; }
+    public string? BusinessEmail { get; set; }
+    public string? WebsiteUrl { get; set; }
 }
 
 public class CreateBreederProfileDto
