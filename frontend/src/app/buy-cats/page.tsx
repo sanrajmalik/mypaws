@@ -7,6 +7,7 @@ import Image from 'next/image';
 import BreederListingFilter from '@/components/breeders/BreederListingFilter';
 import ProgrammaticSeoLinks from '@/components/seo/ProgrammaticSeoLinks';
 import styles from '@/styles/listing-layout.module.css';
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
 
 interface PageProps {
     searchParams: Promise<{
@@ -113,30 +114,36 @@ export default async function BuyCatsHubPage({ searchParams }: PageProps) {
 
                     {recentListings.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {recentListings.map(listing => (
-                                <Link key={listing.id} href={`/buy-cats/${listing.slug}`} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow block group">
-                                    <div className="aspect-[4/3] relative bg-gray-100">
-                                        <Image
-                                            src={listing.imageUrl || '/placeholder-pet.jpg'}
-                                            alt={listing.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                        <div className="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-xs font-bold text-gray-900 shadow-sm">
-                                            ₹{listing.price.toLocaleString()}
-                                        </div>
-                                    </div>
-                                    <div className="p-4">
-                                        <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 truncate mb-1">{listing.title}</h3>
-                                        <p className="text-sm text-gray-500 mb-2">{listing.breedName} • {listing.gender}</p>
+                            {recentListings.map(listing => {
+                                const imageUrl = listing.imageUrl
+                                    ? getAbsoluteImageUrl(listing.imageUrl)
+                                    : '/placeholder-pet.jpg';
 
-                                        <div className="flex items-center text-xs text-gray-500 mt-3 pt-3 border-t border-gray-50">
-                                            <MapPin className="w-3 h-3 mr-1" />
-                                            {listing.cityName}, {listing.stateName}
+                                return (
+                                    <Link key={listing.id} href={`/buy-cats/${listing.slug}`} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow block group">
+                                        <div className="aspect-[4/3] relative bg-gray-100">
+                                            <Image
+                                                src={imageUrl!}
+                                                alt={listing.title}
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                            <div className="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-xs font-bold text-gray-900 shadow-sm">
+                                                ₹{listing.price.toLocaleString()}
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            ))}
+                                        <div className="p-4">
+                                            <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 truncate mb-1">{listing.title}</h3>
+                                            <p className="text-sm text-gray-500 mb-2">{listing.breedName} • {listing.gender}</p>
+
+                                            <div className="flex items-center text-xs text-gray-500 mt-3 pt-3 border-t border-gray-50">
+                                                <MapPin className="w-3 h-3 mr-1" />
+                                                {listing.cityName}, {listing.stateName}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     ) : (
                         <div className="text-center py-16 bg-white rounded-xl border border-dashed border-gray-300">

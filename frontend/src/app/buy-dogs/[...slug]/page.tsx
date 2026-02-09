@@ -7,6 +7,8 @@ import PetImageGallery from '@/components/pet/PetImageGallery';
 import ListingDetailedSeo from '@/components/seo/ListingDetailedSeo';
 import ProtectedContact from '@/components/auth/ProtectedContact';
 
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
+
 interface PageProps {
     params: Promise<{
         slug: string[];
@@ -28,11 +30,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         };
     }
 
+    const ogImages = listing.images.map((img: string) => getAbsoluteImageUrl(img)).filter((img: string | null): img is string => img !== null);
+
     return {
         title: `${listing.breedName} Puppies For Sale in ${listing.cityName} | ${listing.title}`,
         description: `Buy healthy ${listing.breedName} puppies in ${listing.cityName} from ethical breeder ${listing.breederName}. Price: ₹${listing.price.toLocaleString()}. Verified & Health Checked. ${listing.description?.substring(0, 100)}...`,
         openGraph: {
-            images: listing.images.length > 0 ? [listing.images[0]] : []
+            images: ogImages.length > 0 ? [ogImages[0]] : []
         }
     };
 }
@@ -58,11 +62,15 @@ export default async function BuyDogsPage({ params }: PageProps) {
         notFound(); // Or redirect to /buy-cats/...
     }
 
+    // Normalize listing images for SEO and Display
+    const normalizedImages = listing.images.map((img: string) => getAbsoluteImageUrl(img)).filter((img: string | null): img is string => img !== null);
+    const primaryImage = normalizedImages.length > 0 ? normalizedImages[0] : '';
+
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: listing.title,
-        image: listing.images,
+        image: normalizedImages,
         description: listing.description,
         brand: {
             '@type': 'Brand',
@@ -114,7 +122,7 @@ export default async function BuyDogsPage({ params }: PageProps) {
                 {/* Left Column: Images */}
                 <div>
                     <PetImageGallery
-                        images={listing.images.map((url: string) => ({ largeUrl: url, thumbUrl: url, altText: listing.petName }))}
+                        images={normalizedImages.map((url: string) => ({ largeUrl: url, thumbUrl: url, altText: listing.petName }))}
                         petName={listing.petName}
                     />
                 </div>

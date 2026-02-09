@@ -2,73 +2,76 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Heart, MapPin } from 'lucide-react';
 import type { AdoptionListingCard } from '@/lib/public-api';
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
 
 interface PetCardProps {
-    listing: AdoptionListingCard;
-    onFavorite?: (id: string) => void;
-    isFavorite?: boolean;
+  listing: AdoptionListingCard;
+  onFavorite?: (id: string) => void;
+  isFavorite?: boolean;
 }
 
 export default function PetCard({ listing, onFavorite, isFavorite = false }: PetCardProps) {
-    const { pet, city, slug, adoptionFee, isFeatured } = listing;
+  const { pet, city, slug, adoptionFee, isFeatured } = listing;
 
-    return (
-        <article className="pet-card group relative">
-            {isFeatured && (
-                <span className="pet-card__featured">Featured</span>
-            )}
+  const imageUrl = getAbsoluteImageUrl(typeof pet.primaryImage === 'string' ? pet.primaryImage : pet.primaryImage?.thumbUrl);
 
-            <Link href={`/adopt-a-pet/${slug}`} className="block">
-                <div className="pet-card__image-wrapper">
-                    {pet.primaryImage ? (
-                        <Image
-                            src={pet.primaryImage.thumbUrl}
-                            alt={pet.primaryImage.altText || `${pet.name} - ${pet.breed?.name || pet.petType.name}`}
-                            fill
-                            className="pet-card__image"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        />
-                    ) : (
-                        <div className="pet-card__placeholder">
-                            <span className="text-4xl">🐾</span>
-                        </div>
-                    )}
-                </div>
+  return (
+    <article className="pet-card group relative">
+      {isFeatured && (
+        <span className="pet-card__featured">Featured</span>
+      )}
 
-                <div className="pet-card__content">
-                    <h3 className="pet-card__name">{pet.name}</h3>
+      <Link href={`/adopt-a-pet/${slug}`} className="block">
+        <div className="pet-card__image-wrapper">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={typeof pet.primaryImage === 'object' ? pet.primaryImage.altText || pet.name : pet.name}
+              fill
+              className="pet-card__image"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+          ) : (
+            <div className="pet-card__placeholder">
+              <span className="text-4xl">🐾</span>
+            </div>
+          )}
+        </div>
 
-                    <p className="pet-card__breed">
-                        {pet.breed?.name || 'Mixed'} • {pet.ageDisplay}
-                    </p>
+        <div className="pet-card__content">
+          <h3 className="pet-card__name">{pet.name}</h3>
 
-                    <div className="pet-card__location">
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span>{city.name}</span>
-                    </div>
+          <p className="pet-card__breed">
+            {pet.breed?.name || 'Mixed'} • {pet.ageDisplay}
+          </p>
 
-                    {adoptionFee !== null && adoptionFee !== undefined && (
-                        <p className="pet-card__fee">
-                            {adoptionFee === 0 ? 'Free Adoption' : `₹${adoptionFee.toLocaleString()}`}
-                        </p>
-                    )}
-                </div>
-            </Link>
+          <div className="pet-card__location">
+            <MapPin className="w-3.5 h-3.5" />
+            <span>{city.name}</span>
+          </div>
 
-            {onFavorite && (
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onFavorite(listing.id);
-                    }}
-                    className={`pet-card__favorite ${isFavorite ? 'pet-card__favorite--active' : ''}`}
-                    aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                >
-                    <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
-                </button>
-            )}
+          {adoptionFee !== null && adoptionFee !== undefined && (
+            <p className="pet-card__fee">
+              {adoptionFee === 0 ? 'Free Adoption' : `₹${adoptionFee.toLocaleString()}`}
+            </p>
+          )}
+        </div>
+      </Link>
 
-            <style jsx>{`
+      {onFavorite && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            onFavorite(listing.id);
+          }}
+          className={`pet-card__favorite ${isFavorite ? 'pet-card__favorite--active' : ''}`}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+        </button>
+      )}
+
+      <style jsx>{`
         .pet-card {
           background: var(--card-bg, #fff);
           border-radius: 16px;
@@ -172,6 +175,6 @@ export default function PetCard({ listing, onFavorite, isFavorite = false }: Pet
           color: #ef4444;
         }
       `}</style>
-        </article>
-    );
+    </article>
+  );
 }

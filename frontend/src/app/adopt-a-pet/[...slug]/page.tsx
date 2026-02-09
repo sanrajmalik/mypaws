@@ -9,6 +9,8 @@ import ListingDetailedSeo from '@/components/seo/ListingDetailedSeo';
 import ProtectedContact from '@/components/auth/ProtectedContact';
 
 
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
+
 interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
@@ -22,13 +24,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Pet Not Found | mypaws' };
   }
 
+  const images = listing.pet.images || [];
+  const ogImage = images.length > 0 && images[0].largeUrl ? getAbsoluteImageUrl(images[0].largeUrl) : null;
+
   return {
     title: listing.seo?.title || `Adopt ${listing.pet.name} | mypaws`,
     description: listing.seo?.description,
     openGraph: {
       title: listing.seo?.title,
       description: listing.seo?.description,
-      images: listing.pet.images?.[0]?.largeUrl ? [listing.pet.images[0].largeUrl] : [],
+      images: ogImage ? [ogImage] : [],
     },
     alternates: {
       canonical: listing.seo?.canonicalUrl,
@@ -47,11 +52,23 @@ export default async function PetDetailPage({ params }: PageProps) {
 
   const { pet, city, adoptionFee, feeIncludes, adopterRequirements, homeCheckRequired, publishedAt, viewCount } = listing;
 
+  const normalizeImages = (imgs: any[]) => {
+    if (!imgs) return [];
+    return imgs.map(img => ({
+      ...img,
+      largeUrl: getAbsoluteImageUrl(img.largeUrl),
+      thumbUrl: getAbsoluteImageUrl(img.thumbUrl),
+      originalUrl: getAbsoluteImageUrl(img.originalUrl)
+    }));
+  };
+
+  const normalizedPetImages = normalizeImages(pet.images);
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: pet.name,
-    image: pet.images,
+    image: normalizedPetImages.map(img => img.largeUrl).filter(Boolean),
     description: pet.description || `Adopt ${pet.name}, a ${pet.gender} ${pet.breed?.name || pet.petType.name} in ${city.name}.`,
     sku: listing.id,
     mpn: listing.id,
@@ -138,7 +155,7 @@ export default async function PetDetailPage({ params }: PageProps) {
       <div className={`${styles.container} ${styles['pet-detail__main']}`}>
         {/* Image Gallery */}
         <section>
-          <PetImageGallery images={pet.images} petName={pet.name} />
+          <PetImageGallery images={normalizedPetImages} petName={pet.name} />
         </section>
 
         {/* Pet Info */}

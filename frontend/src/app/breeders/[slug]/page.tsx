@@ -15,6 +15,8 @@ import {
     GlobeAltIcon
 } from '@heroicons/react/24/solid';
 
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
+
 export default function BreederProfilePage() {
     const params = useParams();
     const slug = params.slug as string;
@@ -72,7 +74,7 @@ export default function BreederProfilePage() {
                 <div className="h-48 md:h-64 bg-gray-200 relative">
                     {profile.coverImageUrl ? (
                         <Image
-                            src={profile.coverImageUrl}
+                            src={getAbsoluteImageUrl(profile.coverImageUrl)!}
                             alt="Cover"
                             fill
                             className="object-cover"
@@ -90,7 +92,7 @@ export default function BreederProfilePage() {
                         <div className="relative w-32 h-32 sm:w-40 sm:h-40 bg-white rounded-full border-4 border-white shadow-lg overflow-hidden">
                             {profile.logoUrl ? (
                                 <Image
-                                    src={profile.logoUrl}
+                                    src={getAbsoluteImageUrl(profile.logoUrl)!}
                                     alt={profile.businessName}
                                     fill
                                     className="object-cover"
@@ -166,7 +168,7 @@ export default function BreederProfilePage() {
                                     <div key={listing.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
                                         <div className="aspect-w-16 aspect-h-9 bg-gray-200 relative h-48">
                                             {listing.imageUrl ? (
-                                                <Image src={listing.imageUrl} alt={listing.title} fill className="object-cover" />
+                                                <Image src={getAbsoluteImageUrl(listing.imageUrl)!} alt={listing.title} fill className="object-cover" />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
                                             )}

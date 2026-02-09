@@ -6,6 +6,8 @@ import { getBreederListing } from '@/lib/public-api';
 import PetImageGallery from '@/components/pet/PetImageGallery';
 import ProtectedContact from '@/components/auth/ProtectedContact';
 
+import { getAbsoluteImageUrl } from '@/lib/image-utils';
+
 interface PageProps {
     params: Promise<{
         slug: string[];
@@ -25,11 +27,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         };
     }
 
+    const ogImages = listing.images.map((img: string) => getAbsoluteImageUrl(img)).filter((img: string | null): img is string => img !== null);
+
     return {
         title: `${listing.title} | ${listing.breederName}`,
         description: `${listing.breedName} kitten for sale by ${listing.breederName} in ${listing.cityName}. ${listing.description?.substring(0, 150)}...`,
         openGraph: {
-            images: listing.images.length > 0 ? [listing.images[0]] : []
+            images: ogImages.length > 0 ? [ogImages[0]] : []
         }
     };
 }
@@ -49,6 +53,8 @@ export default async function BuyCatsPage({ params }: PageProps) {
         notFound();
     }
 
+    const normalizedImages = listing.images.map((img: string) => getAbsoluteImageUrl(img)).filter((img: string | null): img is string => img !== null);
+
     return (
         <main className="min-h-screen bg-gray-50 pb-12">
             {/* Nav */}
@@ -67,7 +73,7 @@ export default async function BuyCatsPage({ params }: PageProps) {
                 {/* Left Column: Images */}
                 <div>
                     <PetImageGallery
-                        images={listing.images.map((url: string) => ({ largeUrl: url, thumbUrl: url, altText: listing.petName }))}
+                        images={normalizedImages.map((url: string) => ({ largeUrl: url, thumbUrl: url, altText: listing.petName }))}
                         petName={listing.petName}
                     />
                 </div>
