@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { getBreedContent } from '@/data/breed-content';
 
 interface SeoContentBlockProps {
     city?: string;
@@ -8,35 +9,6 @@ interface SeoContentBlockProps {
     allBreeds?: { id: string; name: string; slug: string }[];
     allCities?: { id: string; name: string; slug: string }[];
 }
-
-const BREED_INFO: Record<string, string> = {
-    // Dogs
-    'golden-retriever': 'Golden Retrievers are friendly, intelligent, and devoted dogs. They are excellent family pets and are known for their gentle nature.',
-    'german-shepherd': 'German Shepherds are confident, courageous, and smart. They are loyal guardians and versatile working dogs.',
-    'labrador-retriever': 'Labrador Retrievers are friendly, active, and outgoing. They are one of the most popular breeds due to their affectionate nature.',
-    'beagle': 'Beagles are curious, clever, and energetic hounds. They are great companions but need plenty of exercise and mental stimulation.',
-    'husky': 'Siberian Huskies are affectionate, outgoing, and friendly. They are high-energy dogs that need plenty of exercise.',
-    'siberian-husky': 'Siberian Huskies are affectionate, outgoing, and friendly. They are high-energy dogs that need plenty of exercise.',
-    'indie': 'Indie dogs (Indian Pariah) are extremely hardy, intelligent, and adaptable. They make loyal, low-maintenance pets perfectly suited for the Indian climate.',
-    'indian-pariah': 'The Indian Pariah dog is a natural breed perfect for the Indian climate. They are healthy, intelligent, and very loyal.',
-    'shih-tzu': 'Shih Tzus are affectionate, playful, and outgoing house dogs who love nothing more than following their people from room to room.',
-    'pomeranian': 'Pomeranians are cocky, animated companions with an extroverted personality. They are small but active.',
-    'rottweiler': 'Rottweilers are loyal, loving, and confident guardians. They are silly with their family but protective of their territory.',
-    'pug': 'Pugs are charming, mischievous, and loving. They are ideal house dogs who require minimal exercise but lots of love.',
-    'doberman': 'Doberman Pinschers are powerful, energetic, and intelligent. They are loyal guardians who need plenty of interaction.',
-    'boxer': 'Boxers are fun-loving, bright, and active. They are patient with children and protective of their families.',
-    'great-dane': 'Great Danes are gentle giants. Despite their size, they are sweet, affectionate, and great family pets.',
-    'cocker-spaniel': 'Cocker Spaniels are gentle, loving, and trustworthy family companions with a happy disposition.',
-    'dachshund': 'Dachshunds are spunky, curious, and friendly. They are small but brave and make excellent watchdogs.',
-
-    // Cats
-    'persian': 'Persian cats are known for their gentle, sweet nature and luxurious long coats. They require regular grooming but make wonderful indoor companions.',
-    'siamese': 'Siamese cats are social, vocal, and intelligent. They love interaction and are often compared to dogs in their loyalty.',
-    'maine-coon': 'Maine Coons are gentle giants of the cat world. They are friendly, playful, and get along well with children and other pets.',
-    'bengal-cat': 'Bengal cats are active, energetic, and highly intelligent. They love to play and climb.',
-    'himalayan': 'Himalayan cats are sweet, tempered, and playful. They enjoy the company of their humans.',
-    'ragdoll': 'Ragdolls are affectionate, laid-back, and gentle. They love to be held and often go limp with pleasure.',
-};
 
 const CITY_INFO: Record<string, string> = {
     'mumbai': 'Mumbai has a vibrant pet community with numerous parks and pet-friendly cafes. Adoption drives are frequent.',
@@ -61,12 +33,8 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
     const cityName = city ? formatName(city) : null;
     const typeLabel = petType ? formatName(petType) : 'Pet';
 
-    // Specific "About Breed" text
-    const breedText = breed && BREED_INFO[breed.toLowerCase()]
-        ? BREED_INFO[breed.toLowerCase()]
-        : breedName
-            ? `The ${breedName} is a wonderful companion looking for a forever home. Known for their distinct personality, ${breedName}s make great additions to the right family.`
-            : `Adopting a ${typeLabel.toLowerCase()} saves a life and brings joy to your home. Thousands of animals are waiting for a second chance.`;
+    // Get Rich Content
+    const breedContent = breed ? getBreedContent(breed, (petType === 'cat' ? 'cat' : 'dog')) : null;
 
     // Specific "About City" text
     const cityText = city && CITY_INFO[city.toLowerCase()]
@@ -78,8 +46,6 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
     if (!breed && !city && !petType) return null;
 
     // Filter lists for footer links
-    // If viewing a Breed, show that Breed in other Cities
-    // If viewing a City, show other Breeds in that City
     const relevantCities = allCities.length > 0 ? allCities : [
         { name: 'Mumbai', slug: 'mumbai' }, { name: 'Delhi', slug: 'delhi' },
         { name: 'Bangalore', slug: 'bangalore' }, { name: 'Pune', slug: 'pune' },
@@ -98,25 +64,53 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
             {/* Dynamic Header */}
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 {breedName && cityName
-                    ? `Adopting a ${breedName} in ${cityName}`
+                    ? `Adopt a ${breedName} in ${cityName}`
                     : breedName
-                        ? `Why Adopt a ${breedName}?`
+                        ? `Everything You Need to Know About the ${breedName}`
                         : `Pet Adoption in ${cityName || 'India'}`
                 }
             </h2>
 
             <div className="prose prose-blue max-w-none text-gray-600 space-y-4">
-                <p>{breedText}</p>
+                {/* 1. Breed Description */}
+                {breedContent ? (
+                    <>
+                        <p>{breedContent.description}</p>
 
-                {breedName && (
+                        <h3 className="text-xl font-semibold text-gray-900 mt-4 mb-2">History & Origins</h3>
+                        <p>{breedContent.history}</p>
+
+                        <div className="grid md:grid-cols-2 gap-6 mt-4">
+                            <div>
+                                <h4 className="font-semibold text-gray-900 mb-2">Temperament</h4>
+                                <ul className="list-disc pl-5 space-y-1">
+                                    {breedContent.temperament.map((t, i) => <li key={i}>{t}</li>)}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-gray-900 mb-2">Care Tips</h4>
+                                <ul className="list-disc pl-5 space-y-1">
+                                    {breedContent.careTips.map((t, i) => <li key={i}>{t}</li>)}
+                                </ul>
+                            </div>
+                        </div>
+
+                        {breedContent.funFact && (
+                            <div className="bg-blue-50 p-4 rounded-lg mt-4 border border-blue-100">
+                                <p className="text-blue-800 font-medium">💡 Fun Fact: {breedContent.funFact}</p>
+                            </div>
+                        )}
+                    </>
+                ) : (
                     <p>
-                        When you adopt a {breedName}, you are giving a deserving animal a second chance.
-                        Many {breedName}s in shelters or foster homes are already house-trained and socialized, making the transition to your home smoother.
+                        Adopting a {typeLabel.toLowerCase()} is a life-changing decision.
+                        Whether you are looking for a playful puppy or a calm senior dog, adoption saves a life and brings unconditional love into your home.
                     </p>
                 )}
 
-                <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-2">
-                    {cityName ? `Adoption Resources in ${cityName}` : `Why Adopt a ${typeLabel}?`}
+                {/* 2. City Context */}
+                <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-2">
+                    {cityName ? `Adoption in ${cityName}` : `Why Adopt?`}
                 </h3>
                 <p>{cityText}</p>
 

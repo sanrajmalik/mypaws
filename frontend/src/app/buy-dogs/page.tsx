@@ -8,6 +8,7 @@ import BreederListingFilter from '@/components/breeders/BreederListingFilter';
 import ProgrammaticSeoLinks from '@/components/seo/ProgrammaticSeoLinks';
 import styles from '@/styles/listing-layout.module.css';
 import { getAbsoluteImageUrl } from '@/lib/image-utils';
+import BreederSeoContentBlock from '@/components/seo/BreederSeoContentBlock';
 
 interface PageProps {
     searchParams: Promise<{
@@ -89,9 +90,19 @@ export default async function BuyDogsHubPage({ searchParams }: PageProps) {
             {/* Hero Section */}
             <section className={`${styles['adopt-hero']} ${styles['adopt-hero--dog']}`}>
                 <div className={styles.container}>
-                    <h1 className={styles['adopt-hero__title']}>Find Your Perfect Puppy</h1>
+                    <h1 className={styles['adopt-hero__title']}>
+                        {selectedBreed && selectedCity
+                            ? `Buy ${selectedBreed.name} Puppies in ${selectedCity.name}`
+                            : selectedBreed
+                                ? `${selectedBreed.name} Puppies for Sale in India`
+                                : selectedCity
+                                    ? `Buy Puppies in ${selectedCity.name}`
+                                    : 'Find Your Perfect Puppy'}
+                    </h1>
                     <p className={styles['adopt-hero__subtitle']}>
-                        Connect with verified, ethical breeders across India. Health checks, vaccinations, and love guaranteed.
+                        {selectedBreed && selectedCity
+                            ? `Find healthy, vet-checked ${selectedBreed.name} puppies from verified breeders in ${selectedCity.name}.`
+                            : `Connect with verified, ethical breeders across India. Health checks, vaccinations, and love guaranteed.`}
                     </p>
                     <div className="flex justify-center gap-4 mt-8">
                         <Link href="/breeders/register" className="bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-white/20 transition-colors border border-white/30">
@@ -196,6 +207,14 @@ export default async function BuyDogsHubPage({ searchParams }: PageProps) {
                         </div>
                     </div>
                 </section>
+
+                <BreederSeoContentBlock
+                    petType="dog"
+                    breed={params.breed}
+                    city={params.city}
+                    allBreeds={allBreeds}
+                    allCities={allCities}
+                />
             </div>
         </main>
     );

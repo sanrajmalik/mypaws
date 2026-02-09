@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import AdoptionListingsPage from '../adopt-a-pet/AdoptionListingsPage';
 import { getBreeds, getCities, getAdoptionListings } from '@/lib/public-api';
 import styles from '../adopt-a-pet/adopt.module.css';
+import SeoContentBlock from '@/components/seo/SeoContentBlock';
 
 export const metadata: Metadata = {
   title: 'Adopt a Dog in India | Puppies & Dogs for Adoption | mypaws',
@@ -76,6 +77,14 @@ export default async function AdoptADogPage({ searchParams }: PageProps) {
             }}
           />
         </Suspense>
+
+        <SeoContentBlock
+          city={params.city}
+          breed={params.breed}
+          petType="dog"
+          allBreeds={breedsRes.data}
+          allCities={citiesRes.data}
+        />
       </section>
     </main>
   );
