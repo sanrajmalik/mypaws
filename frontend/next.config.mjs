@@ -4,16 +4,17 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: 'http',
-                hostname: 'localhost',
-                port: '5000',
-                pathname: '/uploads/**',
+                protocol: 'https',
+                hostname: 'mypaws.in',
             },
             {
                 protocol: 'http',
-                hostname: 'api',
+                hostname: 'localhost',
+            },
+            {
+                protocol: 'http',
+                hostname: 'mypaws_api',
                 port: '5000',
-                pathname: '/uploads/**',
             },
             {
                 protocol: 'https',
@@ -25,7 +26,8 @@ const nextConfig = {
         return [
             {
                 source: '/uploads/:path*',
-                destination: `${(process.env.INTERNAL_API_URL || 'http://localhost:5000').replace(/\/api\/?$/, '')}/uploads/:path*`,
+                // Redirect legacy /uploads requests to /api/uploads on backend
+                destination: `${process.env.INTERNAL_API_URL || 'http://localhost:5000/api'}/uploads/:path*`,
             },
             {
                 source: '/api/:path*',
