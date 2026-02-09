@@ -178,49 +178,6 @@ namespace Mypaws.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "BreederListings",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    BreederId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BreedId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Slug = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    PriceMin = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
-                    PriceMax = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: true),
-                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
-                    LitterSize = table.Column<int>(type: "integer", nullable: true),
-                    ExpectedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    PublishedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ViewCount = table.Column<int>(type: "integer", nullable: false),
-                    InquiryCount = table.Column<int>(type: "integer", nullable: false),
-                    Tier = table.Column<int>(type: "integer", nullable: false),
-                    TierExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BreederListings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BreederListings_Breeders_BreederId",
-                        column: x => x.BreederId,
-                        principalTable: "Breeders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BreederListings_Breeds_BreedId",
-                        column: x => x.BreedId,
-                        principalTable: "Breeds",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
 
             migrationBuilder.CreateTable(
                 name: "AdoptionListings",
@@ -301,33 +258,33 @@ namespace Mypaws.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "BreederListingImages",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    BreederListingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    ThumbnailUrl = table.Column<string>(type: "text", nullable: true),
-                    MediumUrl = table.Column<string>(type: "text", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    IsPrimary = table.Column<bool>(type: "boolean", nullable: false),
-                    AltText = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BreederListingImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BreederListingImages_BreederListings_BreederListingId",
-                        column: x => x.BreederListingId,
-                        principalTable: "BreederListings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            //migrationBuilder.CreateTable(
+            //    name: "BreederListingImages",
+            //    columns: table => new
+            //    {
+            //        Id = table.Column<Guid>(type: "uuid", nullable: false),
+            //        BreederListingId = table.Column<Guid>(type: "uuid", nullable: false),
+            //        Url = table.Column<string>(type: "text", nullable: false),
+            //        ThumbnailUrl = table.Column<string>(type: "text", nullable: true),
+            //        MediumUrl = table.Column<string>(type: "text", nullable: true),
+            //        DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+            //        IsPrimary = table.Column<bool>(type: "boolean", nullable: false),
+            //        AltText = table.Column<string>(type: "text", nullable: true),
+            //        CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+            //        UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+            //        IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+            //        DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_BreederListingImages", x => x.Id);
+            //        table.ForeignKey(
+            //            name: "FK_BreederListingImages_BreederListings_BreederListingId",
+            //            column: x => x.BreederListingId,
+            //            principalTable: "BreederListings",
+            //            principalColumn: "Id",
+            //            onDelete: ReferentialAction.Cascade);
+            //    });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdoptionListings_CityId",
@@ -356,26 +313,26 @@ namespace Mypaws.Infrastructure.Migrations
                 table: "AdoptionListings",
                 columns: new[] { "Status", "CityId" });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_BreederListingImages_BreederListingId",
-                table: "BreederListingImages",
-                column: "BreederListingId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_BreederListingImages_BreederListingId",
+            //    table: "BreederListingImages",
+            //    column: "BreederListingId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_BreederListings_BreederId",
-                table: "BreederListings",
-                column: "BreederId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_BreederListings_BreederId",
+            //    table: "BreederListings",
+            //    column: "BreederId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_BreederListings_BreedId",
-                table: "BreederListings",
-                column: "BreedId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_BreederListings_BreedId",
+            //    table: "BreederListings",
+            //    column: "BreedId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_BreederListings_Slug",
-                table: "BreederListings",
-                column: "Slug",
-                unique: true);
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_BreederListings_Slug",
+            //    table: "BreederListings",
+            //    column: "Slug",
+            //    unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Breeders_CityId",
@@ -428,8 +385,8 @@ namespace Mypaws.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "AdoptionListings");
 
-            migrationBuilder.DropTable(
-                name: "BreederListingImages");
+            //migrationBuilder.DropTable(
+            //    name: "BreederListingImages");
 
             migrationBuilder.DropTable(
                 name: "PetImages");

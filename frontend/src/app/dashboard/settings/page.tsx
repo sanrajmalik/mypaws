@@ -1,17 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api, User, PaymentHistoryItem } from '@/lib/api';
 import CitySelect, { City } from '@/components/ui/CitySelect';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SettingsPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const phoneInputRef = useRef<HTMLInputElement>(null);
     const [user, setUser] = useState<User | null>(null);
     const [activeTab, setActiveTab] = useState<'profile' | 'billing' | 'danger'>('profile');
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+    const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null);
 
     // Profile Form State
     const [name, setName] = useState('');
@@ -28,6 +30,23 @@ export default function SettingsPage() {
     useEffect(() => {
         loadUser();
     }, []);
+
+    // Handle prompt query param
+    useEffect(() => {
+        const prompt = searchParams.get('prompt');
+        if (!loading && activeTab === 'profile') {
+            if (prompt === 'phone') {
+                setMessage({ type: 'info', text: 'Please add and verify your phone number to continue.' });
+                // Slight delay to ensure render
+                setTimeout(() => {
+                    if (phoneInputRef.current) {
+                        phoneInputRef.current.focus();
+                        phoneInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 500);
+            }
+        }
+    }, [searchParams, loading, activeTab]);
 
     const loadUser = async () => {
         try {
@@ -155,7 +174,10 @@ export default function SettingsPage() {
             {/* Content */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
                 {message && (
-                    <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                    <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${message.type === 'success' ? 'bg-green-50 text-green-700' :
+                            message.type === 'info' ? 'bg-blue-50 text-blue-700 border border-blue-100' :
+                                'bg-red-50 text-red-700'
+                        }`}>
                         {message.text}
                     </div>
                 )}
@@ -194,12 +216,13 @@ export default function SettingsPage() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                                 <div className="flex gap-2">
                                     <input
+                                        ref={phoneInputRef}
                                         type="tel"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
                                         placeholder="+91 98765 43210"
                                         className={`block w-full rounded-lg border px-4 py-2.5 focus:ring-primary-500 focus:border-primary-500 ${message?.text.includes('phone') && !phone
-                                            ? 'border-red-300 ring-2 ring-red-200'
+                                            ? 'border-blue-300 ring-2 ring-blue-100'
                                             : 'border-gray-300'
                                             }`}
                                     />

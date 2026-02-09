@@ -381,7 +381,6 @@ namespace Mypaws.Infrastructure.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("BreederListings");
                 });
 
             modelBuilder.Entity("Mypaws.Domain.Entities.BreederListingImage", b =>
@@ -428,7 +427,6 @@ namespace Mypaws.Infrastructure.Migrations
 
                     b.HasIndex("BreederListingId");
 
-                    b.ToTable("BreederListingImages");
                 });
 
             modelBuilder.Entity("Mypaws.Domain.Entities.City", b =>

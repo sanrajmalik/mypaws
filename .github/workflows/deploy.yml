@@ -17,8 +17,13 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /opt/mypaws
-            git pull origin main
-            # Try V2 first, fallback to V1
+            # Ensure we are on main
+            git checkout main
+            # Force server to match repository (Clean Slate)
+            git fetch origin main
+            git reset --hard origin/main
+            
+            # Rebuild and Deploy
             if docker compose version >/dev/null 2>&1; then
               docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
             else

@@ -168,8 +168,8 @@ public class AuthController : ControllerBase
             Guid.TryParse(userId, out var id) ? id : Guid.Empty,
             email,
             name,
-            null,
-            null,
+            dbUser?.AvatarUrl,
+            dbUser?.Phone,
             phoneVerified,
             dbUser?.Address, // Map from DB user if available
             dbUser?.CityId,

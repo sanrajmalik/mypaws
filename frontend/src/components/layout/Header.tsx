@@ -7,6 +7,7 @@ import { useAuthStore } from '@/stores/authStore';
 
 export function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
     const { user, isAuthenticated, logout } = useAuthStore();
 
     return (
@@ -75,7 +76,10 @@ export function Header() {
                                     <Heart className="h-6 w-6" />
                                 </Link>
                                 <div className="relative group">
-                                    <button className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors">
+                                    <button
+                                        className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors"
+                                        onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                    >
                                         <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
                                             <User className="h-5 w-5 text-orange-600" />
                                         </div>
@@ -84,7 +88,7 @@ export function Header() {
                                         </span>
                                     </button>
                                     {/* Dropdown */}
-                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                                    <div className={`absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 transition-all z-50 ${isProfileOpen ? 'opacity-100 visible' : 'opacity-0 invisible group-hover:opacity-100 group-hover:visible'}`}>
                                         <div className="py-2">
                                             {user?.isAdmin && (
                                                 <Link
@@ -159,6 +163,26 @@ export function Header() {
                                 <Link href="/buy-cats" className="block text-gray-600" onClick={() => setMobileMenuOpen(false)}>Buy a Cat</Link>
                             </div>
                         </div>
+
+                        {isAuthenticated && (
+                            <div className="px-4 py-2 border-t border-gray-100">
+                                <h4 className="font-semibold text-gray-900 mb-2">My Account</h4>
+                                <div className="pl-4 space-y-2 border-l-2 border-gray-100">
+                                    <Link href="/dashboard" className="block text-gray-600" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+                                    <Link href={user?.isBreeder ? "/dashboard/breeder" : "/dashboard/listings"} className="block text-gray-600" onClick={() => setMobileMenuOpen(false)}>My Listings</Link>
+                                    <Link href="/dashboard/settings" className="block text-gray-600" onClick={() => setMobileMenuOpen(false)}>Settings</Link>
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                            setMobileMenuOpen(false);
+                                        }}
+                                        className="block text-red-600 text-left w-full"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </nav>

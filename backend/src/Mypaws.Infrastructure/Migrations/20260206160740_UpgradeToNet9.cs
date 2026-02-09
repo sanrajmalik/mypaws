@@ -350,13 +350,7 @@ namespace Mypaws.Infrastructure.Migrations
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Status",
-                table: "BreederListings",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer");
+
 
             migrationBuilder.AlterColumn<string>(
                 name: "Status",
@@ -991,13 +985,7 @@ namespace Mypaws.Infrastructure.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Status",
-                table: "BreederListings",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+
 
             migrationBuilder.AlterColumn<int>(
                 name: "Status",

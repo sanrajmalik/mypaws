@@ -37,7 +37,10 @@ builder.Services.AddSingleton<IStorageService>(new LocalStorageService(uploadsPa
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MypawsDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(
+        connectionString,
+        x => x.MigrationsAssembly("Mypaws.Infrastructure")
+    ));
 
 // CORS for frontend
 builder.Services.AddCors(options =>
@@ -55,7 +58,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
     {
-        var jwtSecret = builder.Configuration["Auth:JwtSecret"] ?? "mypaws-dev-secret-key-minimum-32-characters-required";
+        var jwtSecret = builder.Configuration["Auth:JwtSecret"];
+        if (string.IsNullOrEmpty(jwtSecret))
+        {
+            jwtSecret = "mypaws-dev-secret-key-minimum-32-characters-required";
+        }
         var key = System.Text.Encoding.UTF8.GetBytes(jwtSecret);
 
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -105,7 +112,7 @@ Directory.CreateDirectory(uploadsDirectory);
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(uploadsDirectory),
-    RequestPath = "/uploads"
+    RequestPath = "/api/uploads"
 });
 
 app.UseAuthentication();
@@ -130,11 +137,8 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
     logger.LogInformation("EF Core migrations check completed");
 
-    if (app.Environment.IsDevelopment())
-    {
-        logger.LogInformation("Running seed data...");
-        SeedData.Initialize(db);
-    }
+    logger.LogInformation("Running seed data...");
+    SeedData.Initialize(db);
 }
 
 

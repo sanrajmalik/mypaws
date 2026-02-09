@@ -56,14 +56,35 @@ public class LocalStorageService : IStorageService
         
         // Return relative URL (starts with /)
         // This allows frontend to handle domain/proxying
-        return $"/uploads/{folder}/{uniqueName}";
+        // Using /api/uploads to route through Nginx /api location block
+        return $"/api/uploads/{folder}/{uniqueName}";
     }
     
     public Task DeleteAsync(string fileUrl)
     {
         // Extract path from URL
-        var relativePath = fileUrl.Replace(_baseUrl, "").TrimStart('/');
-        var fullPath = Path.Combine(_basePath, "..", relativePath);
+        // Remove BaseUrl if present
+        var urlPath = fileUrl.Replace(_baseUrl, "");
+        
+        // Handle /api/uploads -> maps to physical /uploads defined in _basePath
+        // _basePath is .../wwwroot/uploads
+        // urlPath is /api/uploads/folder/file.ext
+        
+        string relativePath;
+        if (urlPath.StartsWith("/api/uploads", StringComparison.OrdinalIgnoreCase))
+        {
+            relativePath = urlPath.Substring("/api/uploads".Length).TrimStart('/');
+        }
+        else if (urlPath.StartsWith("/uploads", StringComparison.OrdinalIgnoreCase))
+        {
+            relativePath = urlPath.Substring("/uploads".Length).TrimStart('/');
+        }
+        else 
+        {
+            relativePath = urlPath.TrimStart('/');
+        }
+        
+        var fullPath = Path.Combine(_basePath, relativePath);
         
         if (File.Exists(fullPath))
         {
@@ -75,8 +96,23 @@ public class LocalStorageService : IStorageService
     
     public Task<bool> ExistsAsync(string fileUrl)
     {
-        var relativePath = fileUrl.Replace(_baseUrl, "").TrimStart('/');
-        var fullPath = Path.Combine(_basePath, "..", relativePath);
+        var urlPath = fileUrl.Replace(_baseUrl, "");
+        
+        string relativePath;
+        if (urlPath.StartsWith("/api/uploads", StringComparison.OrdinalIgnoreCase))
+        {
+            relativePath = urlPath.Substring("/api/uploads".Length).TrimStart('/');
+        }
+        else if (urlPath.StartsWith("/uploads", StringComparison.OrdinalIgnoreCase))
+        {
+            relativePath = urlPath.Substring("/uploads".Length).TrimStart('/');
+        }
+        else 
+        {
+            relativePath = urlPath.TrimStart('/');
+        }
+
+        var fullPath = Path.Combine(_basePath, relativePath);
         return Task.FromResult(File.Exists(fullPath));
     }
 }

@@ -45,7 +45,13 @@ services:
       - Auth__Issuer=mypaws.in
       - Auth__Audience=mypaws-api
       - Auth__GoogleClientId=${GOOGLE_CLIENT_ID}
+      - Auth__GoogleClientId=${GOOGLE_CLIENT_ID}
       - App__BaseUrl=https://mypaws.in
+      # Admin Settings
+      - AdminSettings__AdminEmails__0=${ADMIN_EMAIL}
+      # Razorpay Settings
+      - Razorpay__KeyId=${RAZORPAY_KEY_ID}
+      - Razorpay__KeySecret=${RAZORPAY_KEY_SECRET}
     ports:
       - "127.0.0.1:5001:5000" # Expose to host on port 5001, bind only to localhost
     volumes:
