@@ -329,7 +329,21 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
             "Wipe their eyes daily to prevent tear staining.",
             "They are strictly indoor cats due to their gentle nature.",
             "Keep their litter box immaculately clean."
-        ]
+        ],
+        buyingInfo: {
+            priceRange: "₹15,000 - ₹40,000",
+            kittenCare: [
+                "Daily eye cleaning is essential.",
+                "Start grooming routine from day one.",
+                "Keep them strictly indoors.",
+                "Monitor for respiratory issues."
+            ],
+            checklist: [
+                "Check for nose pinch/breathing issues.",
+                "Verify tear ducts are functioning.",
+                "Ensure coat is free of mats."
+            ]
+        }
     },
     'siamese': {
         description: "Siamese cats are legendary for their sleek bodies, blue eyes, and vocal personalities. They are extremely social and ‘talk’ to their owners constantly. If you want a cat that interacts with you like a dog, the Siamese is a great choice.",
@@ -340,7 +354,21 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
             "Provide plenty of toys and scratching posts for entertainment.",
             "Their short coat is easy to groom with weekly brushing.",
             "They are intelligent and can even be trained to play fetch."
-        ]
+        ],
+        buyingInfo: {
+            priceRange: "₹15,000 - ₹35,000",
+            kittenCare: [
+                "Provide puzzle toys for mental stimulation.",
+                "Don't leave them alone for long periods.",
+                "Brush teeth regularly (prone to dental issues).",
+                "Purchase a sturdy scratching post."
+            ],
+            checklist: [
+                "Check for crossed eyes or kinked tail.",
+                "Verify vocal level (they are loud!).",
+                "Ensure kitten is active and social."
+            ]
+        }
     },
     'maine-coon': {
         description: "The Maine Coon is known as the 'gentle giant'. They are large, rugged cats with a shaggy coat and a friendly, dog-like personality. They are excellent family pets who get along well with children and dogs.",
@@ -352,6 +380,20 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
             "They are fascinated by water and might join you in the bathroom.",
             "Monitor their heart health as they age."
         ],
+        buyingInfo: {
+            priceRange: "₹40,000 - ₹1,50,000",
+            kittenCare: [
+                "Get them used to grooming early.",
+                "Feed high-protein diet for growth.",
+                "Provide large, sturdy climbing structures.",
+                "Socialize with water (many love it)."
+            ],
+            checklist: [
+                "Verify parents heart tested (HCM).",
+                "Check for hip dysplasia history.",
+                "Ensure kitten is well-socialized."
+            ]
+        },
         funFact: "Maine Coons often chirp and trill rather than meow!"
     },
     'bengal-cat': {
@@ -363,7 +405,21 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
             "They are highly intelligent and can learn tricks.",
             "Some Bengals love water and might play in the sink.",
             "Not suited for sedentary owners; they need stimulation."
-        ]
+        ],
+        buyingInfo: {
+            priceRange: "₹30,000 - ₹80,000",
+            kittenCare: [
+                "Provide lots of vertical space (cat trees).",
+                "Use interactive toys to burn energy.",
+                "Child-proof the home (they open cabinets!).",
+                "Consider a cat wheel for exercise."
+            ],
+            checklist: [
+                "Check for genetic testing (PRA, PK Def).",
+                "Ensure kitten is not aggressive.",
+                "Verify coat pattern clarity/contrast."
+            ]
+        }
     },
     'himalayan': {
         description: "Himalayans, or 'Himmies', combine the luxurious coat of the Persian with the color points and blue eyes of the Siamese. They are sweet, tempered, and playful companions who enjoy the best of both worlds.",
@@ -374,7 +430,21 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
             "Eye cleaning is essential due to their flat faces.",
             "They are prone to heat sensitivity, so keep them cool.",
             "They enjoy interactive play but are also happy to lap-sit."
-        ]
+        ],
+        buyingInfo: {
+            priceRange: "₹20,000 - ₹45,000",
+            kittenCare: [
+                "Daily grooming is non-negotiable.",
+                "Keep environment cool (heat sensitive).",
+                "Clean eyes daily.",
+                "Monitor portion sizes (prone to obesity)."
+            ],
+            checklist: [
+                "Check breathing (flat face issues).",
+                "Verify coat quality and texture.",
+                "Ensure eyes are clear."
+            ]
+        }
     },
     'ragdoll': {
         description: "Ragdolls are large, laid-back, semi-longhaired cats with captivating blue eyes. They are named for their tendency to go limp and relaxed when picked up. They are strictly indoor cats and are often called 'puppy-cats' because they follow their owners around.",
@@ -448,6 +518,207 @@ export const BREED_CONTENT: Record<string, BreedContent> = {
                 "Check for green eyes (may start yellow/halo in kittens).",
                 "Verify coat is double and plush.",
                 "Ensure kitten is not overly fearful."
+            ]
+        }
+    },
+    'great-dane': {
+        description: "The Great Dane is known as the 'Apollo of Dogs'. Despite their imposing size, they are gentle giants—sweet, affectionate, and patient with children. They are elegant dogs that require plenty of space but moderate exercise.",
+        history: "Originally bred in Germany to hunt wild boar, their ferocity has been bred out over centuries, leaving a gentle soul. They are one of the tallest dog breeds in the world.",
+        temperament: ["Gentle", "Friendly", "Patient", "Devoted", "Reserved"],
+        careTips: [
+            "They grow very fast; nutrition must be carefully managed to prevent joint issues.",
+            "Elevated food bowls can help prevent bloat (GDV).",
+            "They need soft bedding to prevent calluses on their elbows.",
+            "Moderate exercise is needed, but avoid strenuous activity in puppies."
+        ],
+        buyingInfo: {
+            priceRange: "₹30,000 - ₹90,000",
+            puppyCare: [
+                "Do not over-exercise growing puppies.",
+                "Socialize early with other dogs and people.",
+                "Start training immediately; they get big fast.",
+                "Feed multiple small meals to prevent bloat."
+            ],
+            checklist: [
+                "Check parents for hip dysplasia and heart issues.",
+                "Ensure the puppy is not fearful.",
+                "Verify the breeder tests for genetic health conditions."
+            ]
+        }
+    },
+    'saint-bernard': {
+        description: "Saint Bernards are famous for their role as alpine rescue dogs. They are massive, powerful, and incredibly gentle. They are excellent family dogs known for their patience and 'nanny-like' behavior with children.",
+        history: "Bred by monks at the Great St. Bernard Pass hospice in the Swiss Alps, they located and saved lost travelers. Their keen sense of smell and direction is legendary.",
+        temperament: ["Gentle", "Patient", "Friendly", "Quiet", "Watchful"],
+        careTips: [
+            "They are sensitive to heat; keep them cool in Indian summers.",
+            "Drooling is common; keep a 'slobber cloth' handy.",
+            "Regular grooming is needed for their thick double coat.",
+            "Training is essential before they become too strong to handle."
+        ],
+        buyingInfo: {
+            priceRange: "₹40,000 - ₹1,00,000",
+            puppyCare: [
+                "Keep them cool and hydrated.",
+                "Limit exercise on hard surfaces to protect joints.",
+                "Socialize to prevent shyness.",
+                "Feed high-quality large breed puppy food."
+            ],
+            checklist: [
+                "Check for hip and elbow scores.",
+                "Ensure eyes are tight (no excessive drooping/ectropion).",
+                "Look for a friendly, outgoing temperament."
+            ]
+        }
+    },
+    'french-bulldog': {
+        description: "The French Bulldog is a charmer with a bat-eared look. They are adaptable, playful, and smart, making them perfect city companions. They don't bark much but are excellent alert dogs.",
+        history: "They originated in England as miniature Bulldogs and accompanied lace workers to France during the Industrial Revolution, where they became fashionable society pets.",
+        temperament: ["Playful", "Smart", "Adaptable", "Affectionate", "Alert"],
+        careTips: [
+            "They are prone to heatstroke; keep them in air-conditioning.",
+            "Clean their facial folds daily to prevent infection.",
+            "Use a harness to protect their neck and airway.",
+            "They can't swim well; keep them away from deep water."
+        ],
+        buyingInfo: {
+            priceRange: "₹45,000 - ₹1,20,000",
+            puppyCare: [
+                "Potty training requires patience.",
+                "Socialize early to prevent possessiveness.",
+                "Don't over-exert them in play.",
+                "Monitor breathing during excitement."
+            ],
+            checklist: [
+                "Check breathing; should not be excessively noisy.",
+                "Verify parents are tested for spinal issues.",
+                "Check skin and coat condition."
+            ]
+        }
+    },
+    'maltese': {
+        description: "The Maltese is a toy dog covered from head to foot with a mantle of long, silky, white hair. They are gentle-mannered and affectionate, known for being lively, playful, and fearless despite their small size.",
+        history: "An ancient breed from the Mediterranean island of Malta, they have been lap dogs of royalty for centuries. They were favored by Roman ladies and later European queens.",
+        temperament: ["Gentle", "Playful", "Affectionate", "Fearless", "Lively"],
+        careTips: [
+            "Daily brushing is required to prevent mats.",
+            "Tear staining is common; clean eyes daily.",
+            "They are indoor dogs and can get cold easily.",
+            "Dental hygiene is critical for this breed."
+        ],
+        buyingInfo: {
+            priceRange: "₹60,000 - ₹1,50,000",
+            puppyCare: [
+                "Handle gently; they are fragile.",
+                "Feed high-quality food for coat health.",
+                "Start grooming habituation early.",
+                "Don't baby them too much to avoid 'small dog syndrome'."
+            ],
+            checklist: [
+                "Check for liver shunt history in lines.",
+                "Ensure knees (patellas) are stable.",
+                "Verify coat quality and pigment."
+            ]
+        }
+    },
+    'lhasa-apso': {
+        description: "The Lhasa Apso is a non-sporting dog breed originating in Tibet. It was bred as an interior sentinel in the Buddhist monasteries, to alert the monks to any intruders who entered. They are hardy, independent, and wary of strangers.",
+        history: "Considered sacred in Tibet, they were never sold but given as gifts of good fortune. They guarded the inner sanctums of monasteries and palaces.",
+        temperament: ["Steady", "Fearless", "Assertive", "Devoted", "Aloof with Strangers"],
+        careTips: [
+            "Their long coat needs frequent grooming.",
+            "They have a strong watchdog instinct and will bark.",
+            "Early socialization is needed to manage suspicion of strangers.",
+            "They are sturdy but watch their back; avoid jumping from heights."
+        ],
+        buyingInfo: {
+            priceRange: "₹15,000 - ₹45,000",
+            puppyCare: [
+                "Socialize extensively with strangers.",
+                "Accustom them to grooming tools.",
+                "Establish leadership early.",
+                "Monitor ears for infection."
+            ],
+            checklist: [
+                "Check for kidney health history.",
+                "Ensure eyes are clear of progressive retinal atrophy.",
+                "Verify coat texture."
+            ]
+        }
+    },
+    // NEW CATS
+    'american-shorthair': {
+        description: "The American Shorthair is a true working breed known for its longevity, robust health, and good looks. They are amiable, easy-going cats that are great for families.",
+        history: "Descended from cats that came over on the Mayflower to hunt rats, they were working farm cats before becoming show favorites. They are the 'All-American' cat.",
+        temperament: ["Easygoing", "Friendly", "Adaptable", "Playful", "Independent"],
+        careTips: [
+            "They are low maintenance; weekly brushing is enough.",
+            "Watch their weight; they love to eat.",
+            "Interactive play prevents boredom.",
+            "They get along well with other pets."
+        ],
+        buyingInfo: {
+            priceRange: "₹10,000 - ₹40,000",
+            kittenCare: [
+                "Establish feeding routines to prevent obesity.",
+                "Provide plenty of toys.",
+                "Socialize with family members.",
+                "Scratching posts are a must."
+            ],
+            checklist: [
+                "Check for heart health (HCM).",
+                "Ensure coat is dense and hard.",
+                "Verify overall vitality."
+            ]
+        }
+    },
+    'sphynx': {
+        description: "The Sphynx is a hairless cat breed known for its lack of a coat. They are extremely extroverted, energetic, and affectionate, often described as part monkey, part dog, part child, and part cat.",
+        history: "A natural genetic mutation found in Toronto in 1966 led to the breed. Contrary to belief, they are not Egyptian but Canadian in origin.",
+        temperament: ["Energetic", "Affectionate", "Curious", "Social", "Demanding"],
+        careTips: [
+            "They need weekly baths to remove oils.",
+            "Sun protection is needed if outdoors.",
+            "They get cold easily; sweaters may be needed.",
+            "Clean ears regularly as they lack hair to block dirt."
+        ],
+        buyingInfo: {
+            priceRange: "₹45,000 - ₹1,20,000+",
+            kittenCare: [
+                "Get them used to bathing early.",
+                "Keep them warm.",
+                "Socialize; they need constant company.",
+                "Feed high-calorie diet (high metabolism)."
+            ],
+            checklist: [
+                "Check for HCM (heart) history.",
+                "Ensure skin is healthy and not irritated.",
+                "Verify kitten is eating well."
+            ]
+        }
+    },
+    'munchkin': {
+        description: "The Munchkin is a small to medium-sized cat characterized by its very short legs, which are caused by a genetic mutation. Despite their short stature, they are fast, energetic, and love to play.",
+        history: "The breed's short legs are due to a naturally occurring genetic mutation. They were first introduced to the general public in 1991.",
+        temperament: ["Playful", "Outgoing", "Intelligent", "Speedy", "Affectionate"],
+        careTips: [
+            "They cannot jump as high as other cats; provide steps.",
+            "Watch their weight to protect their spine.",
+            "Regular grooming depends on coat length.",
+            "They run 'ferret-style' and are very fast."
+        ],
+        buyingInfo: {
+            priceRange: "₹30,000 - ₹60,000",
+            kittenCare: [
+                "Ensure safe play areas (avoid high jumps).",
+                "Monitor for any mobility issues.",
+                "Socialize with other pets.",
+                "Feed balanced diet."
+            ],
+            checklist: [
+                "Check for spinal issues (lordosis).",
+                "Ensure breathing is clear (pectus excavatum check).",
+                "Verify mobility and energy."
             ]
         }
     }
