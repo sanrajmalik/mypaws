@@ -59,6 +59,17 @@ services:
     networks:
       - whatomate
 
+  # Adminer (DB GUI) - Production
+  # Accessible ONLY via localhost (SSH Tunnel required)
+  mypaws_adminer:
+    image: adminer:latest
+    container_name: mypaws_adminer
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8080" # Binds to localhost only on port 8081
+    networks:
+      - whatomate
+
 networks:
   whatomate:
     external: true
