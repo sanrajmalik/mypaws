@@ -52,10 +52,24 @@ export default async function AdoptADogPage({ searchParams }: PageProps) {
       <section className={`${styles['adopt-hero']} ${styles['adopt-hero--dog']}`}>
         <div className={styles.container}>
           <h1 className={styles['adopt-hero__title']}>
-            🐕 Adopt a Dog
+            {(() => {
+              const selectedBreed = breedsRes.data.find(b => b.slug === params.breed || b.id === params.breed);
+              const selectedCity = citiesRes.data.find(c => c.slug === params.city || c.id === params.city);
+
+              if (selectedBreed && selectedCity) return `Adopt ${selectedBreed.name} Dogs in ${selectedCity.name}`;
+              if (selectedBreed) return `Adopt ${selectedBreed.name} Dogs`;
+              if (selectedCity) return `Adopt Dogs in ${selectedCity.name}`;
+              return '🐕 Adopt a Dog';
+            })()}
           </h1>
           <p className={styles['adopt-hero__subtitle']}>
-            Give a loving dog their forever home
+            {(() => {
+              const selectedBreed = breedsRes.data.find(b => b.slug === params.breed || b.id === params.breed);
+              const selectedCity = citiesRes.data.find(c => c.slug === params.city || c.id === params.city);
+
+              if (selectedBreed && selectedCity) return `Find loving ${selectedBreed.name} dogs and puppies for adoption in ${selectedCity.name}.`;
+              return 'Give a loving dog their forever home';
+            })()}
           </p>
         </div>
       </section>
@@ -86,6 +100,6 @@ export default async function AdoptADogPage({ searchParams }: PageProps) {
           allCities={citiesRes.data}
         />
       </section>
-    </main>
+    </main >
   );
 }

@@ -52,10 +52,24 @@ export default async function AdoptACatPage({ searchParams }: PageProps) {
       <section className={`${styles['adopt-hero']} ${styles['adopt-hero--cat']}`}>
         <div className={styles.container}>
           <h1 className={styles['adopt-hero__title']}>
-            🐈 Adopt a Cat
+            {(() => {
+              const selectedBreed = breedsRes.data.find(b => b.slug === params.breed || b.id === params.breed);
+              const selectedCity = citiesRes.data.find(c => c.slug === params.city || c.id === params.city);
+
+              if (selectedBreed && selectedCity) return `Adopt ${selectedBreed.name} Cats in ${selectedCity.name}`;
+              if (selectedBreed) return `Adopt ${selectedBreed.name} Cats`;
+              if (selectedCity) return `Adopt Cats in ${selectedCity.name}`;
+              return '🐈 Adopt a Cat';
+            })()}
           </h1>
           <p className={styles['adopt-hero__subtitle']}>
-            Find your purr-fect feline companion
+            {(() => {
+              const selectedBreed = breedsRes.data.find(b => b.slug === params.breed || b.id === params.breed);
+              const selectedCity = citiesRes.data.find(c => c.slug === params.city || c.id === params.city);
+
+              if (selectedBreed && selectedCity) return `Find loving ${selectedBreed.name} cats and kittens for adoption in ${selectedCity.name}.`;
+              return 'Find your purr-fect feline companion';
+            })()}
           </p>
         </div>
       </section>
