@@ -72,6 +72,13 @@ export const useAuthStore = create<AuthState>()(
                 set({ isLoading: true });
                 try {
                     const response = await api.mockLogin(email, name);
+
+                    if (response.user.status === 'suspended' || response.user.status === 'banned') {
+                        await api.logout();
+                        set({ user: null, isAuthenticated: false, isLoading: false, isInitialized: true });
+                        throw new Error('account_suspended');
+                    }
+
                     set({
                         user: response.user,
                         isAuthenticated: true,
@@ -88,6 +95,13 @@ export const useAuthStore = create<AuthState>()(
                 set({ isLoading: true });
                 try {
                     const response = await api.googleLogin(idToken);
+
+                    if (response.user.status === 'suspended' || response.user.status === 'banned') {
+                        await api.logout();
+                        set({ user: null, isAuthenticated: false, isLoading: false, isInitialized: true });
+                        throw new Error('account_suspended');
+                    }
+
                     set({
                         user: response.user,
                         isAuthenticated: true,

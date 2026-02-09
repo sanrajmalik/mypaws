@@ -49,11 +49,22 @@ export default function LoginPage() {
             } else {
                 router.push(redirect);
             }
-        } catch (err) {
+        } catch (err: any) {
             console.error('Google login error:', err);
+            if (err.message === 'account_suspended') {
+                router.push('/suspended');
+                return;
+            }
             setError('Google login failed. Please try again.');
         }
     }, [googleLogin, redirect, router]);
+
+    // Check if Google script is already loaded (navigating back to login)
+    useEffect(() => {
+        if (window.google?.accounts) {
+            setGoogleLoaded(true);
+        }
+    }, []);
 
     useEffect(() => {
         if (googleLoaded && GOOGLE_CLIENT_ID && window.google) {
@@ -89,7 +100,11 @@ export default function LoginPage() {
             } else {
                 router.push(redirect);
             }
-        } catch (err) {
+        } catch (err: any) {
+            if (err.message === 'account_suspended') {
+                router.push('/suspended');
+                return;
+            }
             setError('Login failed. Please try again.');
         }
     };

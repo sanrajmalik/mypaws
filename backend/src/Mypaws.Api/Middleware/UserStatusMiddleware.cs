@@ -15,6 +15,17 @@ public class UserStatusMiddleware
 
     public async Task InvokeAsync(HttpContext context, IUserRepository userRepository)
     {
+        // Skip check for logout and login endpoints so users can fix their session
+        var path = context.Request.Path;
+        if (path.StartsWithSegments("/api/v1/auth/logout") || 
+            path.StartsWithSegments("/api/v1/auth/google") ||
+            path.StartsWithSegments("/api/v1/auth/mock") || // For dev
+            path.StartsWithSegments("/api/v1/auth/refresh"))
+        {
+            await _next(context);
+            return;
+        }
+
         if (context.User.Identity?.IsAuthenticated == true)
         {
             var userIdStr = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value 

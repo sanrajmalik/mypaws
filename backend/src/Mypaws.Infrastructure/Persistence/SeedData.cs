@@ -7,7 +7,16 @@ public static class SeedData
 {
     public static void Initialize(MypawsDbContext context)
     {
-        // Skip if already seeded
+        EnsurePetTypes(context);
+        EnsureBreeds(context);
+        EnsureLocations(context);
+        EnsureTestUser(context);
+        
+        context.SaveChanges();
+    }
+
+    private static void EnsurePetTypes(MypawsDbContext context)
+    {
         if (context.PetTypes.Any()) return;
 
         // Pet Types
@@ -32,6 +41,17 @@ public static class SeedData
         };
 
         context.PetTypes.AddRange(dogType, catType);
+        context.SaveChanges();
+    }
+
+    private static void EnsureBreeds(MypawsDbContext context)
+    {
+        if (context.Breeds.Any()) return;
+
+        var dogType = context.PetTypes.FirstOrDefault(p => p.Name == "Dog");
+        var catType = context.PetTypes.FirstOrDefault(p => p.Name == "Cat");
+
+        if (dogType == null || catType == null) return;
 
         // Load breeds from JSON file
         var breedsJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "data", "breeds.json");
@@ -107,6 +127,12 @@ public static class SeedData
         }
 
         context.Breeds.AddRange(allBreeds);
+        context.SaveChanges();
+    }
+
+    private static void EnsureLocations(MypawsDbContext context)
+    {
+        if (context.Countries.Any()) return;
 
         // Country
         var india = new Country
@@ -230,11 +256,30 @@ public static class SeedData
             new() { Id = Guid.NewGuid(), StateId = states[19].Id, Name = "Margao", Slug = "margao", Latitude = 15.2832m, Longitude = 73.9862m },
         };
         context.Cities.AddRange(cities);
-
         context.SaveChanges();
-        
-        Console.WriteLine($"Seeded {allBreeds.Count} breeds ({allBreeds.Count(b => context.PetTypes.Find(b.PetTypeId)?.Slug == "dog")} dogs, {allBreeds.Count(b => context.PetTypes.Find(b.PetTypeId)?.Slug == "cat")} cats)");
-        Console.WriteLine($"Seeded {states.Count} states and {cities.Count} cities");
+    }
+
+    private static void EnsureTestUser(MypawsDbContext context)
+    {
+        var email = "test@mypaw.in";
+        if (context.Users.Any(u => u.Email == email)) return;
+
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = email,
+            Name = "Test User",
+            Status = UserStatus.Active,
+            PhoneVerified = false,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            // Note: Password 'test123' is not stored as the system uses Google OAuth/Mock Auth.
+            // This user can be accessed via Mock Auth (if enabled) or by logging in with a Google account of the same email.
+        };
+
+        context.Users.Add(user);
+        context.SaveChanges();
+        Console.WriteLine($"Seeded test user: {email}");
     }
 
     private static List<Breed> GetDefaultBreeds(Guid dogTypeId, Guid catTypeId)

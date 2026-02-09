@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
       # Connect to EXISTING whatomate_db container
       - ConnectionStrings__DefaultConnection=Host=whatomate_db;Database=mypaws;Username=mypaws;Password=${DB_PASSWORD}
