@@ -34,13 +34,13 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
       # Connect to EXISTING whatomate_db container
       - ConnectionStrings__DefaultConnection=Host=whatomate_db;Database=mypaws;Username=mypaws;Password=${DB_PASSWORD}
       # Connect to EXISTING whatomate_redis container
       - Redis__ConnectionString=whatomate_redis:6379
-      - Auth__MockEnabled=false
+      - Auth__MockEnabled=true
       - Auth__JwtSecret=${JWT_SECRET}
       - Auth__Issuer=mypaws.in
       - Auth__Audience=mypaws-api
