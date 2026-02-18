@@ -40,7 +40,7 @@ services:
       - ConnectionStrings__DefaultConnection=Host=whatomate_db;Database=mypaws;Username=mypaws;Password=${DB_PASSWORD}
       # Connect to EXISTING whatomate_redis container
       - Redis__ConnectionString=whatomate_redis:6379
-      - Auth__MockEnabled=true
+      - Auth__MockEnabled=false
       - Auth__JwtSecret=${JWT_SECRET}
       - Auth__Issuer=mypaws.in
       - Auth__Audience=mypaws-api
