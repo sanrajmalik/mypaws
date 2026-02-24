@@ -46,8 +46,6 @@ public static class SeedData
 
     private static void EnsureBreeds(MypawsDbContext context)
     {
-        if (context.Breeds.Any()) return;
-
         var dogType = context.PetTypes.FirstOrDefault(p => p.Name == "Dog");
         var catType = context.PetTypes.FirstOrDefault(p => p.Name == "Cat");
 
@@ -67,6 +65,7 @@ public static class SeedData
         {
             breedsJsonPath = "/app/data/breeds.json";
         }
+
         List<Breed> allBreeds = new();
 
         if (File.Exists(breedsJsonPath))
@@ -120,14 +119,28 @@ public static class SeedData
             }
         }
 
-        // Fallback to default breeds if JSON loading failed
-        if (allBreeds.Count == 0)
+        // Fallback to default breeds if JSON loading failed and no breeds exist at all
+        if (allBreeds.Count == 0 && !context.Breeds.Any())
         {
             allBreeds = GetDefaultBreeds(dogType.Id, catType.Id);
         }
 
-        context.Breeds.AddRange(allBreeds);
-        context.SaveChanges();
+        if (allBreeds.Count == 0) return;
+
+        // Upsert: only insert breeds whose slug doesn't already exist in the DB
+        var existingSlugs = context.Breeds.Select(b => b.Slug).ToHashSet();
+        var newBreeds = allBreeds.Where(b => !existingSlugs.Contains(b.Slug)).ToList();
+
+        if (newBreeds.Count > 0)
+        {
+            context.Breeds.AddRange(newBreeds);
+            context.SaveChanges();
+            Console.WriteLine($"Seeded {newBreeds.Count} new breeds (skipped {existingSlugs.Count} existing).");
+        }
+        else
+        {
+            Console.WriteLine($"All {existingSlugs.Count} breeds already exist. No new breeds to seed.");
+        }
     }
 
     private static void EnsureLocations(MypawsDbContext context)
