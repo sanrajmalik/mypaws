@@ -12,9 +12,10 @@ interface Props {
     cities: City[];
     initialFilters: FilterState;
     petType?: 'dog' | 'cat';
+    basePath?: string;
 }
 
-export default function AdoptionListingsPage({ initialListings, breeds, cities, initialFilters }: Props) {
+export default function AdoptionListingsPage({ initialListings, breeds, cities, initialFilters, basePath = '/adopt-a-pet' }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -28,8 +29,8 @@ export default function AdoptionListingsPage({ initialListings, breeds, cities, 
         Object.entries(newFilters).forEach(([key, value]) => {
             if (value) params.set(key, value);
         });
-        router.push(`/adopt-a-pet?${params.toString()}`, { scroll: false });
-    }, [router]);
+        router.push(`${basePath}?${params.toString()}`, { scroll: false });
+    }, [router, basePath]);
 
     const handleFilterChange = async (newFilters: FilterState) => {
         setFilters(newFilters);
