@@ -112,7 +112,7 @@ export default function FilterPanel({ breeds, cities, filters, onChange, petType
                     </div>
                     {showCityDropdown && (
                         <div className="filter-dropdown-menu">
-                            {filteredCities.slice(0, 10).map(city => (
+                            {filteredCities.map(city => (
                                 <button
                                     key={city.id}
                                     className={`filter-dropdown-item ${filters.city === city.slug ? 'active' : ''}`}
@@ -173,7 +173,7 @@ export default function FilterPanel({ breeds, cities, filters, onChange, petType
                             >
                                 All Breeds
                             </button>
-                            {filteredBreeds.slice(0, 15).map(breed => (
+                            {filteredBreeds.map(breed => (
                                 <button
                                     key={breed.id}
                                     className={`filter-dropdown-item ${filters.breed === breed.slug ? 'active' : ''}`}
