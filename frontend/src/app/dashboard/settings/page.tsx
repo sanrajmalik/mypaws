@@ -4,11 +4,13 @@ import { useState, useEffect, useRef } from 'react';
 import { api, User, PaymentHistoryItem } from '@/lib/api';
 import CitySelect, { City } from '@/components/ui/CitySelect';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
 
 export default function SettingsPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const phoneInputRef = useRef<HTMLInputElement>(null);
+    const { refreshUser } = useAuthStore();
     const [user, setUser] = useState<User | null>(null);
     const [activeTab, setActiveTab] = useState<'profile' | 'billing' | 'danger'>('profile');
     const [loading, setLoading] = useState(true);
@@ -98,8 +100,9 @@ export default function SettingsPage() {
                 pincode
             });
             setUser(updatedUser);
-            // If we selected a city, update our local user state to reflect it (at least logic wise)
-            // Ideally backend returns full object.
+
+            // Sync global auth store so other pages (e.g. create-listing) see updated user data
+            await refreshUser();
 
             setMessage({ type: 'success', text: 'Profile updated successfully!' });
         } catch (err: any) {
@@ -175,8 +178,8 @@ export default function SettingsPage() {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
                 {message && (
                     <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${message.type === 'success' ? 'bg-green-50 text-green-700' :
-                            message.type === 'info' ? 'bg-blue-50 text-blue-700 border border-blue-100' :
-                                'bg-red-50 text-red-700'
+                        message.type === 'info' ? 'bg-blue-50 text-blue-700 border border-blue-100' :
+                            'bg-red-50 text-red-700'
                         }`}>
                         {message.text}
                     </div>
