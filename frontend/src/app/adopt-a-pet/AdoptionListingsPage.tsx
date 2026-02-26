@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import PetCard from '@/components/pets/PetCard';
 import FilterPanel, { FilterState } from '@/components/pets/FilterPanel';
 import { AdoptionListingCard, Breed, City, PaginatedResponse, getAdoptionListings } from '@/lib/public-api';
@@ -195,6 +196,23 @@ export default function AdoptionListingsPage({ initialListings, breeds, cities, 
                 </>
             )}
 
+            {/* CTA Banner for listing pets */}
+            <div className="list-pet-cta">
+                <div className="list-pet-cta__content">
+                    <div className="list-pet-cta__icon">🏠</div>
+                    <h3 className="list-pet-cta__title">Want to find a loving home for your pet?</h3>
+                    <p className="list-pet-cta__text">
+                        Create a free account and list your pet for adoption. Reach thousands of verified adopters across India.
+                    </p>
+                    <div className="list-pet-cta__actions">
+                        <Link href="/dashboard/listings" className="list-pet-cta__btn">
+                            List Your Pet for Adoption
+                        </Link>
+                        <span className="list-pet-cta__note">It&apos;s completely free &bull; Takes under 2 minutes</span>
+                    </div>
+                </div>
+            </div>
+
             <style jsx>{`
         .listings-page {
           min-height: 400px;
@@ -293,10 +311,84 @@ export default function AdoptionListingsPage({ initialListings, breeds, cities, 
           color: #6b7280;
           font-size: 14px;
         }
+
+        /* CTA Banner */
+        .list-pet-cta {
+          margin-top: 48px;
+          background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%);
+          border: 1px solid #bbf7d0;
+          border-radius: 16px;
+          padding: 40px;
+          text-align: center;
+        }
+
+        .list-pet-cta__icon {
+          font-size: 40px;
+          margin-bottom: 12px;
+        }
+
+        .list-pet-cta__title {
+          font-size: 22px;
+          font-weight: 700;
+          color: #111827;
+          margin-bottom: 8px;
+        }
+
+        .list-pet-cta__text {
+          font-size: 15px;
+          color: #4b5563;
+          max-width: 480px;
+          margin: 0 auto 20px;
+          line-height: 1.6;
+        }
+
+        .list-pet-cta__actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .list-pet-cta__btn {
+          display: inline-block;
+          padding: 14px 32px;
+          background: linear-gradient(135deg, #16a34a, #15803d);
+          color: white;
+          font-size: 16px;
+          font-weight: 600;
+          border-radius: 12px;
+          text-decoration: none;
+          transition: transform 0.2s, box-shadow 0.2s;
+          box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+        }
+
+        .list-pet-cta__btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+        }
+
+        .list-pet-cta__note {
+          font-size: 13px;
+          color: #6b7280;
+        }
         
         @media (max-width: 640px) {
           .pet-grid {
             grid-template-columns: 1fr;
+          }
+
+          .list-pet-cta {
+            padding: 28px 20px;
+            margin-top: 32px;
+          }
+
+          .list-pet-cta__title {
+            font-size: 18px;
+          }
+
+          .list-pet-cta__btn {
+            width: 100%;
+            text-align: center;
           }
         }
       `}</style>
