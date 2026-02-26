@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import PetCard from '@/components/pets/PetCard';
 import FilterPanel, { FilterState } from '@/components/pets/FilterPanel';
 import { AdoptionListingCard, Breed, City, PaginatedResponse, getAdoptionListings } from '@/lib/public-api';
@@ -205,9 +204,9 @@ export default function AdoptionListingsPage({ initialListings, breeds, cities, 
                         Create a free account and list your pet for adoption. Reach thousands of verified adopters across India.
                     </p>
                     <div className="list-pet-cta__actions">
-                        <Link href="/dashboard/listings" className="list-pet-cta__btn">
+                        <button onClick={() => router.push('/dashboard/listings')} className="list-pet-cta__btn">
                             List Your Pet for Adoption
-                        </Link>
+                        </button>
                         <span className="list-pet-cta__note">It&apos;s completely free &bull; Takes under 2 minutes</span>
                     </div>
                 </div>

@@ -3,10 +3,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
-import { PawPrint, Mail, User } from 'lucide-react';
+import { PawPrint } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 
-// Google Client ID - TODO: Move to environment variable
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 declare global {
@@ -28,9 +27,7 @@ export default function LoginPage() {
     const searchParams = useSearchParams();
     const redirect = searchParams.get('redirect') || '/';
 
-    const { mockLogin, googleLogin, isLoading } = useAuthStore();
-    const [email, setEmail] = useState('test@example.com');
-    const [name, setName] = useState('Test User');
+    const { googleLogin, isLoading } = useAuthStore();
     const [error, setError] = useState('');
     const [googleLoaded, setGoogleLoaded] = useState(false);
 
@@ -39,9 +36,6 @@ export default function LoginPage() {
             setError('');
             await googleLogin(response.credential);
 
-            // Check current user from store to determine redirect
-            // We need to wait a tick or re-fetch current user if store update is async/laggy
-            // But authStore usually sets user immediately.
             const user = useAuthStore.getState().user;
 
             if (user?.isAdmin) {
@@ -87,28 +81,6 @@ export default function LoginPage() {
         }
     }, [googleLoaded, handleGoogleCallback]);
 
-    const handleMockLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError('');
-
-        try {
-            await mockLogin(email, name);
-            const user = useAuthStore.getState().user;
-
-            if (user?.isAdmin) {
-                router.push('/admin');
-            } else {
-                router.push(redirect);
-            }
-        } catch (err: any) {
-            if (err.message === 'account_suspended') {
-                router.push('/suspended');
-                return;
-            }
-            setError('Login failed. Please try again.');
-        }
-    };
-
     return (
         <>
             {/* Load Google Identity Services */}
@@ -135,7 +107,7 @@ export default function LoginPage() {
                     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
                         {/* Google Sign-In Button */}
                         {GOOGLE_CLIENT_ID ? (
-                            <div className="mb-6">
+                            <div>
                                 <div
                                     id="google-signin-button"
                                     className="w-full flex justify-center"
@@ -145,7 +117,7 @@ export default function LoginPage() {
                                 )}
                             </div>
                         ) : (
-                            <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
                                 <p className="text-amber-800 text-sm">
                                     <strong>Google Sign-In not configured.</strong><br />
                                     Set <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_GOOGLE_CLIENT_ID</code> environment variable.
@@ -153,73 +125,11 @@ export default function LoginPage() {
                             </div>
                         )}
 
-                        {/* Divider */}
-                        <div className="relative my-6">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-200" />
+                        {error && (
+                            <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg p-3 mt-4">
+                                {error}
                             </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-4 bg-white text-gray-500">or use mock login</span>
-                            </div>
-                        </div>
-
-                        {/* Mock Login Form */}
-                        <form onSubmit={handleMockLogin} className="space-y-4">
-                            <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                                    Email
-                                </label>
-                                <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
-                                        placeholder="your@email.com"
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                                    Name
-                                </label>
-                                <div className="relative">
-                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
-                                        placeholder="Your name"
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            {error && (
-                                <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg p-3">
-                                    {error}
-                                </div>
-                            )}
-
-                            <button
-                                type="submit"
-                                disabled={isLoading}
-                                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {isLoading ? 'Signing in...' : 'Sign in (Mock)'}
-                            </button>
-                        </form>
-
-                        {/* Note */}
-                        <p className="text-xs text-gray-500 text-center mt-4">
-                            Mock login is for development only. Use Google login in production.
-                        </p>
+                        )}
                     </div>
 
                     {/* Terms */}
