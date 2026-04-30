@@ -37,7 +37,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: `Buy healthy ${listing.breedName} puppies in ${listing.cityName} from ethical breeder ${listing.breederName}. Price: ₹${listing.price.toLocaleString()}. Verified & Health Checked. ${listing.description?.substring(0, 100)}...`,
         openGraph: {
             images: ogImages.length > 0 ? [ogImages[0]] : []
-        }
+        },
+        alternates: {
+            canonical: `https://mypaws.in/buy-dogs/${slug.join('/')}`,
+        },
     };
 }
 

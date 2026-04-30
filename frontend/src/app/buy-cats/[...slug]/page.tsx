@@ -34,7 +34,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: `${listing.breedName} kitten for sale by ${listing.breederName} in ${listing.cityName}. ${listing.description?.substring(0, 150)}...`,
         openGraph: {
             images: ogImages.length > 0 ? [ogImages[0]] : []
-        }
+        },
+        alternates: {
+            canonical: `https://mypaws.in/buy-cats/${slug.join('/')}`,
+        },
     };
 }
 

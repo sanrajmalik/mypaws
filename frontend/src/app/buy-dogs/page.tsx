@@ -21,6 +21,14 @@ interface PageProps {
     }>;
 }
 
+function buildCanonicalUrl(params: { breed?: string; city?: string }) {
+    const qp = new URLSearchParams();
+    if (params.breed) qp.set('breed', params.breed);
+    if (params.city) qp.set('city', params.city);
+    const qs = qp.toString();
+    return `https://mypaws.in/buy-dogs${qs ? `?${qs}` : ''}`;
+}
+
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
     const params = await searchParams;
     const { city, breed } = params;
@@ -43,13 +51,22 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
         description = `Find healthy puppies for sale in ${cityName}. Connect with verified dog breeders near you.`;
     }
 
+    const canonicalUrl = buildCanonicalUrl(params);
+    // Noindex pages with non-SEO filters (gender, price, pagination) to prevent index bloat
+    const hasNonSeoFilters = !!(params.gender || params.minPrice || params.maxPrice || (params.page && parseInt(params.page) > 1));
+
     return {
         title,
         description,
         openGraph: {
             title,
             description,
-        }
+            url: canonicalUrl,
+        },
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        robots: hasNonSeoFilters ? { index: false, follow: true } : { index: true, follow: true },
     };
 }
 

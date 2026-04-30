@@ -25,7 +25,8 @@ export default function ProgrammaticSeoLinks({ petType, items, type }: SeoLinksP
             </h3>
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {items.map((item) => (
+                {/* Cap at 15 items to prevent internal link explosion that wastes crawl budget */}
+                {items.slice(0, 15).map((item) => (
                     <Link
                         key={item.id}
                         href={`${baseUrl}?${queryKey}=${item.slug}`}

@@ -56,6 +56,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const { title, description } = buildDogSeoStrings(params);
   const canonicalUrl = buildDogCanonicalUrl(params);
 
+  // Noindex pages with non-SEO filters (gender, size, age, pagination) to prevent index bloat
+  const hasNonSeoFilters = !!(params.gender || params.size || params.age || (params.page && parseInt(params.page) > 1));
+
   return {
     title,
     description,
@@ -67,6 +70,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     alternates: {
       canonical: canonicalUrl,
     },
+    robots: hasNonSeoFilters ? { index: false, follow: true } : { index: true, follow: true },
   };
 }
 

@@ -45,6 +45,9 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
 
     if (!breed && !city && !petType) return null;
 
+    // Determine the correct base path for internal links
+    const basePath = petType === 'cat' ? '/adopt-a-cat' : petType === 'dog' ? '/adopt-a-dog' : '/adopt-a-pet';
+
     // Filter lists for footer links
     const relevantCities = allCities.length > 0 ? allCities : [
         { name: 'Mumbai', slug: 'mumbai' }, { name: 'Delhi', slug: 'delhi' },
@@ -129,7 +132,7 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
                             {relevantCities.slice(0, 20).map(c => (
                                 <Link
                                     key={c.slug} // Use slug for key
-                                    href={`/adopt-a-pet?breed=${breed}&city=${c.slug}`}
+                                    href={`${basePath}?breed=${breed}&city=${c.slug}`}
                                     className="text-sm text-gray-500 hover:text-primary-600 hover:underline"
                                 >
                                     {breedName} in {c.name || formatName(c.slug)}
@@ -142,7 +145,7 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
                             {relevantBreeds.slice(0, 20).map(b => (
                                 <Link
                                     key={b.slug}
-                                    href={`/adopt-a-pet?city=${city}&breed=${b.slug}`}
+                                    href={`${basePath}?city=${city}&breed=${b.slug}`}
                                     className="text-sm text-gray-500 hover:text-primary-600 hover:underline"
                                 >
                                     {b.name || formatName(b.slug)} in {cityName}
@@ -152,7 +155,7 @@ export default function SeoContentBlock({ city, breed, petType, allBreeds = [], 
                     )}
                     {/* Fallback mixed links if neither or both */}
                     {(!breed && !city) && relevantBreeds.slice(0, 10).map(b => (
-                        <Link key={b.slug} href={`/adopt-a-pet?breed=${b.slug}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline">
+                        <Link key={b.slug} href={`${basePath}?breed=${b.slug}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline">
                             Adopt {b.name || formatName(b.slug)}
                         </Link>
                     ))}

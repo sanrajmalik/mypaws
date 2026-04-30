@@ -63,7 +63,28 @@ function buildCanonicalUrl(params: { city?: string; breed?: string; petType?: st
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = await searchParams;
   const { title, description } = buildSeoStrings(params);
-  const canonicalUrl = buildCanonicalUrl(params);
+
+  // When petType is specified, canonical should point to the dedicated page
+  // to avoid competing with /adopt-a-cat and /adopt-a-dog
+  let canonicalUrl: string;
+  if (params.petType === 'cat') {
+    const qp = new URLSearchParams();
+    if (params.breed) qp.set('breed', params.breed);
+    if (params.city) qp.set('city', params.city);
+    const qs = qp.toString();
+    canonicalUrl = `https://mypaws.in/adopt-a-cat${qs ? `?${qs}` : ''}`;
+  } else if (params.petType === 'dog') {
+    const qp = new URLSearchParams();
+    if (params.breed) qp.set('breed', params.breed);
+    if (params.city) qp.set('city', params.city);
+    const qs = qp.toString();
+    canonicalUrl = `https://mypaws.in/adopt-a-dog${qs ? `?${qs}` : ''}`;
+  } else {
+    canonicalUrl = buildCanonicalUrl(params);
+  }
+
+  // Noindex pages with non-SEO filters (gender, size, age, pagination) to prevent index bloat
+  const hasNonSeoFilters = !!(params.gender || params.size || params.age || (params.page && parseInt(params.page) > 1));
 
   return {
     title,
@@ -76,6 +97,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     alternates: {
       canonical: canonicalUrl,
     },
+    robots: hasNonSeoFilters ? { index: false, follow: true } : { index: true, follow: true },
   };
 }
 
