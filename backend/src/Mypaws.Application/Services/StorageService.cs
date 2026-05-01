@@ -91,6 +91,7 @@ public class LocalStorageService : IStorageService
             File.Delete(fullPath);
         }
         
+        
         return Task.CompletedTask;
     }
     

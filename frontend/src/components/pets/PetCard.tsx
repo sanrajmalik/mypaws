@@ -45,6 +45,7 @@ export default function PetCard({ listing, onFavorite, isFavorite = false }: Pet
             {pet.breed?.name || 'Mixed'} • {pet.ageDisplay}
           </p>
 
+
           <div className="pet-card__location">
             <MapPin className="w-3.5 h-3.5" />
             <span>{city.name}</span>
